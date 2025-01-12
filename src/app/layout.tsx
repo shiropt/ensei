@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@mantine/core/styles.css";
+import "./global.module.css";
 import {
   createTheme,
   MantineProvider,
   ColorSchemeScript,
   mantineHtmlProps,
 } from "@mantine/core";
+import { Header } from "@/components/ui/Header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,7 +40,10 @@ export default function RootLayout({
         <link rel="shortcut icon" href="/favicon.svg" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <MantineProvider theme={theme}>{children}</MantineProvider>
+        <MantineProvider theme={theme}>
+          <Header />
+          {children}
+        </MantineProvider>
       </body>
     </html>
   );
