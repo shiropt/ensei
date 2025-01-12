@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import "@mantine/core/styles.css";
+import {
+  createTheme,
+  MantineProvider,
+  ColorSchemeScript,
+  mantineHtmlProps,
+} from "@mantine/core";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,6 +22,9 @@ export const metadata: Metadata = {
   title: "ozel",
   description: "ozel",
 };
+const theme = createTheme({
+  /** Put your mantine theme override here */
+});
 
 export default function RootLayout({
   children,
@@ -23,9 +32,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja">
+    <html lang="ja" {...mantineHtmlProps}>
+      <head>
+        <ColorSchemeScript />
+        <link rel="shortcut icon" href="/favicon.svg" />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+        <MantineProvider theme={theme}>{children}</MantineProvider>
       </body>
     </html>
   );
