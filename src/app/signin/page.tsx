@@ -1,3 +1,4 @@
+import { login } from "@/app/signin/actions";
 import { FormContainer } from "@/components/ui/FormContainer";
 import { Box, Button, Flex, Input, Text, Fieldset } from "@mantine/core";
 import Link from "next/link";
@@ -11,6 +12,7 @@ export default function Login() {
               <label htmlFor="email">
                 メールアドレス
                 <Input
+                  name="email"
                   id="email"
                   w="320px"
                   type="email"
@@ -20,6 +22,7 @@ export default function Login() {
               <label htmlFor="password">
                 パスワード
                 <Input
+                  name="password"
                   id="password"
                   w="320px"
                   type="password"
@@ -28,6 +31,7 @@ export default function Login() {
               </label>
             </Flex>
             <Button
+              formAction={login}
               type="submit"
               variant="filled"
               radius={20}
