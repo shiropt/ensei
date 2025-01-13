@@ -1,5 +1,5 @@
-import { signup } from "@/app/signup/actions";
 import { FormContainer } from "@/components/ui/FormContainer";
+import { signup } from "@/utils/supabase/auth/actions";
 import { Box, Button, Fieldset, Flex, Input, Text } from "@mantine/core";
 import Link from "next/link";
 

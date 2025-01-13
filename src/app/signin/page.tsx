@@ -1,5 +1,5 @@
-import { login } from "@/app/signin/actions";
 import { FormContainer } from "@/components/ui/FormContainer";
+import { signin } from "@/utils/supabase/auth/actions";
 import { Box, Button, Flex, Input, Text, Fieldset } from "@mantine/core";
 import Link from "next/link";
 export default function Login() {
@@ -31,7 +31,7 @@ export default function Login() {
               </label>
             </Flex>
             <Button
-              formAction={login}
+              formAction={signin}
               type="submit"
               variant="filled"
               radius={20}
