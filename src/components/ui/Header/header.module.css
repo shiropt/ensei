@@ -12,3 +12,8 @@
   display: flex;
   align-items: center;
 }
+.signout {
+  color: var(--mantine-color-black);
+  font-size: 0.85rem;
+  text-decoration: none;
+}
