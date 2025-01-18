@@ -1,13 +1,27 @@
+"use client";
+
 import { FormContainer } from "@/components/ui/FormContainer";
 import { signup } from "@/utils/supabase/auth/actions";
-import { Box, Button, Fieldset, Flex, Input, Text } from "@mantine/core";
+import {
+  Box,
+  Button,
+  Fieldset,
+  Flex,
+  Input,
+  LoadingOverlay,
+  Text,
+} from "@mantine/core";
 import Link from "next/link";
+import { useActionState } from "react";
 
 export default function Signup() {
+  const [errorMessage, formAction, isPending] = useActionState(signup, "");
+
   return (
     <Box mt="xl">
+      <LoadingOverlay visible={isPending} zIndex={100} />
       <FormContainer title="新規登録">
-        <form>
+        <form action={formAction}>
           <Fieldset bd="none">
             <Flex direction="column" gap="md">
               <label htmlFor="email">
@@ -17,6 +31,7 @@ export default function Signup() {
                   id="email"
                   w="320px"
                   type="email"
+                  required
                   placeholder="メールアドレスを入力してください"
                 />
               </label>
@@ -28,11 +43,11 @@ export default function Signup() {
                   w="320px"
                   type="password"
                   placeholder="パスワードを入力してください"
+                  maxLength={8}
                 />
               </label>
             </Flex>
             <Button
-              formAction={signup}
               type="submit"
               variant="filled"
               radius={20}
@@ -44,6 +59,7 @@ export default function Signup() {
             </Button>
           </Fieldset>
         </form>
+        {errorMessage && <Text c="red">{errorMessage}</Text>}
         <Flex mt="md" align="center" gap="sm" direction="column" p="md">
           <Text>
             <Link href="signin">すでにアカウントをお持ちの方</Link>
