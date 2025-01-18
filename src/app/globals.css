@@ -17,7 +17,6 @@ body {
 }
 
 body {
-  background-color: var(--mantine-color-gray-1);
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
