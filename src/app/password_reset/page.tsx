@@ -14,7 +14,7 @@ export default function PasswordReset() {
         <form>
           <label htmlFor="email">
             メールアドレス
-            <Input w="320px" placeholder="example@ozel.com" id="email" />
+            <Input w="320px" placeholder="example@ensei.com" id="email" />
           </label>
           <Button
             type="submit"

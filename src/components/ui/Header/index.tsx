@@ -11,7 +11,7 @@ export const Header = async () => {
   return (
     <header className={classes.header}>
       <Flex justify="space-between" className={classes.inner}>
-        <Text size="lg">ozel</Text>
+        <Text size="lg">ensei</Text>
         {/* {data.user && <SignoutButton />} */}
       </Flex>
     </header>

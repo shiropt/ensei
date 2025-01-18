@@ -21,8 +21,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ozel",
-  description: "ozel",
+  title: "ensei",
+  description: "ensei",
 };
 const theme = createTheme({
   /** Put your mantine theme override here */
