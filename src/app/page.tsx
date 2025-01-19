@@ -84,7 +84,7 @@ export default function Home() {
   );
 }
 
-export const Item = () => {
+const Item = () => {
   return (
     <List.Item
       styles={{
