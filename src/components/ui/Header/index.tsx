@@ -1,4 +1,4 @@
-import { Flex, Text } from "@mantine/core";
+import { Flex, Input, Title } from "@mantine/core";
 import classes from "./header.module.css";
 
 // import { createClient } from "@/utils/supabase/auth/client";
@@ -10,9 +10,13 @@ export const Header = async () => {
 
   return (
     <header className={classes.header}>
-      <Flex justify="space-between" className={classes.inner}>
-        <Text size="lg">ensei</Text>
-        {/* {data.user && <SignoutButton />} */}
+      <Flex h="100%" align="center" justify="space-between">
+        <Title order={1} size="lg">
+          ensei
+        </Title>
+        <form action="">
+          <Input radius="lg" type="search" placeholder="検索"></Input>
+        </form>
       </Flex>
     </header>
   );

@@ -1,17 +1,14 @@
 .header {
-  height: 56px;
+  height: 70px;
+  padding: var(--mantine-spacing-md);
+  box-shadow: 0px 1px 4px var(--mantine-color-gray-4);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
   background-color: var(--mantine-color-white);
-  border-bottom: 1px solid
-    light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
-  padding-left: var(--mantine-spacing-md);
-  padding-right: var(--mantine-spacing-md);
 }
 
-.inner {
-  height: 56px;
-  display: flex;
-  align-items: center;
-}
 .signout {
   color: var(--mantine-color-black);
   font-size: 0.85rem;
