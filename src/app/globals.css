@@ -31,9 +31,23 @@ body {
 form label {
   font-size: 0.75rem;
 }
-
+li {
+  list-style-type: none;
+}
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
+}
+dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  font-size: 14px;
+}
+dt {
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+.main {
+  margin-top: 70px;
 }
