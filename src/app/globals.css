@@ -43,10 +43,10 @@ dl {
   display: grid;
   grid-template-columns: auto 1fr;
   font-size: 14px;
+  color: #343a40;
 }
 dt {
-  font-weight: 600;
-  margin-right: 0.5rem;
+  margin-right: 0.25rem;
 }
 .main {
   margin-top: 70px;
