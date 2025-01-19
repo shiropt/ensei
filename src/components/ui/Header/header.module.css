@@ -1,8 +1,12 @@
 .header {
   height: 70px;
   padding: var(--mantine-spacing-md);
-  border-top: 4px solid var(--mantine-color-green-4);
   box-shadow: 0px 1px 4px var(--mantine-color-gray-4);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--mantine-color-white);
 }
 
 .signout {
