@@ -6,7 +6,7 @@ type IconType = "home" | "mapPin" | "star" | "users";
 
 type Props = {
   icon: IconType;
-  text: string;
+  text: string | null;
 };
 
 const getIcon = (icon: IconType) => {
@@ -23,6 +23,7 @@ const getIcon = (icon: IconType) => {
 };
 
 export const IconWithText: FC<Props> = ({ text, icon }) => {
+  if (!text) return null;
   return (
     <Flex align="baseline" gap={4}>
       {getIcon(icon)}
