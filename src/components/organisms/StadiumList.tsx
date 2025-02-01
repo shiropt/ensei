@@ -1,5 +1,3 @@
-export const dynamic = "force-dynamic"; // キャッシュを完全に無効化
-
 import { Card } from "@/components/molecules/Card";
 import { getStadiums, Params } from "@/utils/supabase/db/actions";
 import { Grid } from "@mantine/core";
