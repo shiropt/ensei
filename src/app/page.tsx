@@ -1,33 +1,34 @@
-import { Card } from "@/components/molecules/Card";
-import { PillsInput } from "@/components/molecules/PillsInput";
+export const dynamic = "force-dynamic"; // キャッシュを完全に無効化
+
 import { Tab } from "@/components/molecules/Tab";
-import { getStadiums } from "@/utils/supabase/db/actions";
+import { Params } from "@/utils/supabase/db/actions";
 
-import { Box, Container, Flex, Grid, Paper } from "@mantine/core";
-import { FC } from "react";
+import { StadiumList } from "@/components/organisms/StadiumList";
+import { Box, Container } from "@mantine/core";
+import { createLoader, parseAsString, SearchParams } from "nuqs/server";
+import { Suspense } from "react";
+import { FallbackStadiumList } from "@/components/organisms/StadiumList.fallback";
 
-const SearchArea: FC = () => {
-  return (
-    <Flex flex="1" direction="column" gap="md">
-      <Paper radius="sm" py="sm">
-        <PillsInput />
-      </Paper>
-    </Flex>
-  );
+const coordinatesSearchParams = {
+  category: parseAsString.withDefault("all"),
+} as const;
+
+const loadSearchParams = createLoader(coordinatesSearchParams);
+
+type PageProps = {
+  searchParams: Promise<SearchParams>;
 };
 
-export default async function Home() {
-  const stadiums = await getStadiums();
+export default async function Home({ searchParams }: PageProps) {
+  const { category } = await loadSearchParams(searchParams);
+
   return (
     <Box className="main" p="lg">
       <Container fluid>
         <Tab />
-        <SearchArea />
-        <Grid>
-          {stadiums.map((item) => {
-            return <Card key={item.id} {...item} />;
-          })}
-        </Grid>
+        <Suspense key={category} fallback={<FallbackStadiumList />}>
+          <StadiumList category={category as Params["category"]}></StadiumList>
+        </Suspense>
       </Container>
     </Box>
   );

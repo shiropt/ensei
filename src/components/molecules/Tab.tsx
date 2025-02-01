@@ -1,15 +1,18 @@
 "use client";
 import { Tabs, TabsProps } from "@mantine/core";
-import { useState } from "react";
+import { useQueryState } from "nuqs";
 
 export const Tab = ({
   children,
   ...props
 }: { children?: React.ReactNode } & TabsProps) => {
-  const [activeTab, setActiveTab] = useState<string | null>("all");
+  const [category, setCategory] = useQueryState("category", {
+    defaultValue: "all",
+    shallow: false,
+  });
 
   return (
-    <Tabs {...props} value={activeTab} onChange={setActiveTab}>
+    <Tabs {...props} value={category} onChange={setCategory}>
       <Tabs.List>
         <Tabs.Tab value="all">全て</Tabs.Tab>
         <Tabs.Tab value="j1">J1</Tabs.Tab>
