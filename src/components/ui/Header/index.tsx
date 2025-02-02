@@ -33,30 +33,25 @@ export const Header = () => {
   return (
     <header className={classes.header}>
       <Flex h="100%" align="center" justify="space-between">
-        <Title order={1} size="lg">
+        <Title className={classes.title} order={1} size="lg">
           ensei
         </Title>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-          }}
-        >
-          <Input
-            value={localInput}
-            radius="lg"
-            onChange={handleChange}
-            type="search"
-            placeholder="検索"
-            rightSectionPointerEvents="all"
-            rightSection={
-              <CloseButton
-                aria-label="Clear input"
-                onClick={handleClear}
-                style={{ display: searchQuery ? undefined : "none" }}
-              />
-            }
-          ></Input>
-        </form>
+        <Input
+          className={classes.search}
+          value={localInput}
+          radius="lg"
+          onChange={handleChange}
+          type="search"
+          placeholder="検索"
+          rightSectionPointerEvents="all"
+          rightSection={
+            <CloseButton
+              aria-label="Clear input"
+              onClick={handleClear}
+              style={{ display: searchQuery ? undefined : "none" }}
+            />
+          }
+        ></Input>
       </Flex>
     </header>
   );
