@@ -1,8 +1,8 @@
 import { Params } from "@/utils/supabase/db/actions";
 
-import { StadiumList } from "@/components/organisms/StadiumList";
 import { Suspense } from "react";
 import { FallbackStadiumList } from "@/components/organisms/StadiumList.fallback";
+import { StadiumListWrapper } from "@/components/organisms/StadiumListWrapper";
 
 type PageProps = {
   params: Promise<{ category: Params["category"] }>;
@@ -22,7 +22,7 @@ export default async function Home({ params }: PageProps) {
   return (
     <>
       <Suspense fallback={<FallbackStadiumList />}>
-        <StadiumList category={category}></StadiumList>
+        <StadiumListWrapper category={category}></StadiumListWrapper>
       </Suspense>
     </>
   );

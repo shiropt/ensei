@@ -42,8 +42,10 @@ export default function RootLayout({
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <MantineProvider theme={theme}>
-          <Header />
-          <NuqsAdapter>{children}</NuqsAdapter>
+          <NuqsAdapter>
+            <Header />
+            {children}
+          </NuqsAdapter>
         </MantineProvider>
       </body>
     </html>
