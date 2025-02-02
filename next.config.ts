@@ -10,6 +10,16 @@ const nextConfig: NextConfig = {
     ],
   },
   /* config options here */
+  async redirects() {
+    return [
+      // Basic redirect
+      {
+        source: "/",
+        destination: "/category",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
