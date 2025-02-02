@@ -11,7 +11,16 @@ type Props = {
 };
 
 const normalize = (str: string | null) => {
-  return str ? str.normalize("NFKC").toLowerCase() : "";
+  return str
+    ? str
+        .normalize("NFKC")
+        .toLowerCase()
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[\u3041-\u3096]/g, (char) =>
+          String.fromCharCode(char.charCodeAt(0) + 0x60)
+        )
+        .replace(/\s+/g, "")
+    : "";
 };
 
 const filterByQuery = (stadium: Stadium, query: string) => {
