@@ -1,16 +1,34 @@
 .header {
-  height: 70px;
   padding: var(--mantine-spacing-md);
   box-shadow: 0px 1px 4px var(--mantine-color-gray-4);
-  position: fixed;
   width: 100%;
-  top: 0;
   z-index: 1000;
   background-color: var(--mantine-color-white);
+  position: fixed;
 }
 
 .signout {
   color: var(--mantine-color-black);
   font-size: 0.85rem;
   text-decoration: none;
+}
+/* デスクトップ: タブを上部に表示 */
+@media (min-width: 768px) {
+  .header {
+    height: 70px;
+    top: 0;
+  }
+}
+
+/* スマホ: タブを下部に固定 */
+@media (max-width: 767px) {
+  .header {
+    bottom: 0;
+  }
+  .title {
+    display: none;
+  }
+  .search {
+    width: 100%;
+  }
 }

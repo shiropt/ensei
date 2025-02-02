@@ -48,6 +48,9 @@ dl {
 dt {
   margin-right: 0.25rem;
 }
-.main {
-  margin-top: 70px;
+
+@media (min-width: 768px) {
+  .main {
+    margin-top: 70px;
+  }
 }
