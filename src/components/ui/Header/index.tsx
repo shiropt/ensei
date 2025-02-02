@@ -37,6 +37,7 @@ export const Header = () => {
           ensei
         </Title>
         <Input
+          size="md"
           className={classes.search}
           value={localInput}
           radius="lg"
