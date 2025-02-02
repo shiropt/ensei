@@ -1,5 +1,5 @@
 "use client";
-import { Tabs, TabsProps } from "@mantine/core";
+import { Tabs, TabsProps, Text } from "@mantine/core";
 import { useRouter } from "next/navigation";
 
 export const Tab = ({
@@ -15,10 +15,18 @@ export const Tab = ({
   return (
     <Tabs {...props} defaultValue="all" onChange={handleCategoryChange}>
       <Tabs.List>
-        <Tabs.Tab value="all">全て</Tabs.Tab>
-        <Tabs.Tab value="/j1">J1</Tabs.Tab>
-        <Tabs.Tab value="/j2">J2</Tabs.Tab>
-        <Tabs.Tab value="/j3">J3</Tabs.Tab>
+        <Tabs.Tab px="xl" fz="md" fw="bold" value="all">
+          <Text c="gray.9">全て</Text>
+        </Tabs.Tab>
+        <Tabs.Tab px="xl" fz="md" fw="bold" value="/j1">
+          <Text c="gray.9">J1</Text>
+        </Tabs.Tab>
+        <Tabs.Tab px="xl" fz="md" fw="bold" value="/j2">
+          <Text c="gray.9">J2</Text>
+        </Tabs.Tab>
+        <Tabs.Tab px="xl" fz="md" fw="bold" value="/j3">
+          <Text c="gray.9">J3</Text>
+        </Tabs.Tab>
       </Tabs.List>
       {children && children}
     </Tabs>
