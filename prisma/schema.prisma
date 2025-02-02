@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model stadium_tags {
+  id         Int       @id @default(autoincrement())
+  stadium_id Int?
+  tag_id     Int?
+  stadiums   stadiums? @relation(fields: [stadium_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  tags       tags?     @relation(fields: [tag_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([stadium_id, tag_id])
+  @@index([stadium_id], map: "idx_stadium_tags_stadium_id")
+  @@index([tag_id], map: "idx_stadium_tags_tag_id")
+}
+
+model stadiums {
+  id           Int            @id(map: "stadium_pkey") @default(autoincrement())
+  created_at   DateTime       @default(now()) @db.Timestamptz(6)
+  name         String?
+  homeTeam     String?
+  capacity     BigInt?
+  access       String?
+  rating       Int?           @default(0) @db.SmallInt
+  description  String?
+  location     String?
+  shortName    String?
+  imageUrl     String?
+  stadium_tags stadium_tags[]
+  team_stadium team_stadium[]
+
+  @@index([name], map: "idx_stadiums_name")
+}
+
+model tags {
+  id           Int            @id @default(autoincrement())
+  name         String         @unique @db.VarChar(255)
+  created_at   DateTime?      @default(now()) @db.Timestamp(6)
+  stadium_tags stadium_tags[]
+}
+
+model team_stadium {
+  id         Int      @id @default(autoincrement())
+  team_id    Int
+  stadium_id Int
+  teams      teams    @relation(fields: [team_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_team_id")
+  stadiums   stadiums @relation(fields: [stadium_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([stadium_id], map: "idx_team_stadium_stadium_id")
+  @@index([team_id], map: "idx_team_stadium_team_id")
+}
+
+model teams {
+  id           Int            @id @default(autoincrement())
+  name         String         @db.VarChar(255)
+  category     String?        @db.VarChar(50)
+  team_stadium team_stadium[]
+
+  @@index([category], map: "idx_teams_category")
+}
