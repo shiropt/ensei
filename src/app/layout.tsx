@@ -10,6 +10,7 @@ import {
 } from "@mantine/core";
 import { Header } from "@/components/ui/Header";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,7 +44,9 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <MantineProvider theme={theme}>
           <NuqsAdapter>
-            <Header />
+            <Suspense>
+              <Header />
+            </Suspense>
             {children}
           </NuqsAdapter>
         </MantineProvider>
