@@ -12,7 +12,7 @@ export const Card: FC<Props> = ({
   homeTeams,
   capacity,
   access,
-  rating,
+  // rating,
   imageUrl,
 }) => {
   return (
@@ -25,7 +25,7 @@ export const Card: FC<Props> = ({
               <Title fz="md" c="gray.9" order={3}>
                 {name}
               </Title>
-              <IconWithText text={`4.${rating}`} icon="star" />
+              {/* <IconWithText text={`4.${rating}`} icon="star" /> */}
             </Flex>
             {capacity && (
               <IconWithText
