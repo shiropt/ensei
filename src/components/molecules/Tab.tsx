@@ -16,16 +16,16 @@ export const Tab = ({
     <Tabs {...props} defaultValue="all" onChange={handleCategoryChange}>
       <Tabs.List>
         <Tabs.Tab px="xl" fz="md" fw="bold" value="all">
-          <Text c="gray.9">全て</Text>
+          <Text>全て</Text>
         </Tabs.Tab>
         <Tabs.Tab px="xl" fz="md" fw="bold" value="/j1">
-          <Text c="gray.9">J1</Text>
+          <Text>J1</Text>
         </Tabs.Tab>
         <Tabs.Tab px="xl" fz="md" fw="bold" value="/j2">
-          <Text c="gray.9">J2</Text>
+          <Text>J2</Text>
         </Tabs.Tab>
         <Tabs.Tab px="xl" fz="md" fw="bold" value="/j3">
-          <Text c="gray.9">J3</Text>
+          <Text>J3</Text>
         </Tabs.Tab>
       </Tabs.List>
       {children && children}

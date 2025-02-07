@@ -22,7 +22,7 @@ export const Card: FC<Props> = ({
           <Image alt="スタジアム画像" src={imageUrl ?? ""} />
           <Flex flex={1} justify="left" direction="column">
             <Flex align="center" justify="space-between">
-              <Title fz="md" c="gray.9" order={3}>
+              <Title fz="md" order={3}>
                 {name}
               </Title>
               {/* <IconWithText text={`4.${rating}`} icon="star" /> */}

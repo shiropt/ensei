@@ -12,13 +12,13 @@ type Props = {
 const getIcon = (icon: IconType) => {
   switch (icon) {
     case "home":
-      return <IconHome color="gray" size={12} />;
+      return <IconHome size={12} />;
     case "mapPin":
-      return <IconMapPin color="gray" size={12} />;
+      return <IconMapPin size={12} />;
     case "star":
-      return <IconStar color="gray" size={12} />;
+      return <IconStar size={12} />;
     case "users":
-      return <IconUsers color="gray" size={12} />;
+      return <IconUsers size={12} />;
   }
 };
 
@@ -27,9 +27,7 @@ export const IconWithText: FC<Props> = ({ text, icon }) => {
   return (
     <Flex align="baseline" gap={4}>
       {getIcon(icon)}
-      <Text fz="sm" c="gray.8">
-        {text}
-      </Text>
+      <Text fz="sm">{text}</Text>
     </Flex>
   );
 };
