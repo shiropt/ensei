@@ -6,15 +6,14 @@ export const Tab = ({
   children,
   ...props
 }: { children?: React.ReactNode } & TabsProps) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setCategory] = useQueryState("category");
+  const [category, setCategory] = useQueryState("category");
 
   const handleCategoryChange = (value: string | null) => {
     setCategory(value);
   };
 
   return (
-    <Tabs {...props} defaultValue="all" onChange={handleCategoryChange}>
+    <Tabs {...props} defaultValue={category} onChange={handleCategoryChange}>
       <Tabs.List>
         <Tabs.Tab px="xl" fz="md" fw="bold" value="all">
           <Text>全て</Text>
