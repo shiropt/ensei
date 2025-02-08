@@ -65,7 +65,28 @@ export const getStadiums = async ({ category }: Params) => {
   });
 };
 
+export const getStadium = async (id: number) => {
+  const stadium = await prisma.stadiums.findUnique({
+    where: { id },
+    include: {
+      team_stadium: {
+        include: {
+          teams: true,
+        },
+      },
+    },
+  });
+  return {
+    ...stadium,
+    homeTeams: stadium?.team_stadium.map((team) => team.teams.name).join(", "),
+  };
+};
+
 export type Stadiums = ReturnType<typeof getStadiums> extends Promise<infer U>
+  ? U
+  : never;
+
+export type Stadium = ReturnType<typeof getStadium> extends Promise<infer U>
   ? U
   : never;
 
