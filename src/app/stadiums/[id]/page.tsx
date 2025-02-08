@@ -2,18 +2,22 @@ import { StadiumDetail } from "@/components/organisms/StadiumDetail";
 import { FallbackStadiumDetail } from "@/components/organisms/StadiumDetail/fallback";
 import { Suspense } from "react";
 
+export async function generateStaticParams() {
+  return Array.from({ length: 60 }, (_, i) => (i + 1).toString()).map((id) => ({
+    id,
+  }));
+}
+
 export default async function Page({
   params,
-  searchParams,
 }: {
   params: Promise<{ id: string }>;
   searchParams: Promise<{ from: string | undefined }>;
 }) {
   const { id } = await params;
-  const { from } = await searchParams;
   return (
     <Suspense fallback={<FallbackStadiumDetail />}>
-      <StadiumDetail from={from} id={id}></StadiumDetail>
+      <StadiumDetail id={id}></StadiumDetail>
     </Suspense>
   );
 }

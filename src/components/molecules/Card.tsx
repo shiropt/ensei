@@ -4,7 +4,6 @@ import { IconWithText } from "@/components/molecules/IconWithText";
 import { Stadiums } from "@/utils/supabase/db/actions";
 import { Flex, Grid, Paper, Title } from "@mantine/core";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
 import { FC } from "react";
 
 type Props = Stadiums[number];
@@ -18,8 +17,6 @@ export const Card: FC<Props> = ({
   // rating,
   imageUrl,
 }) => {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
   return (
     <Grid.Col miw="280px" span={{ xs: 12, sm: 6, md: 4, lg: 3, xl: 2 }}>
       {/* TODO: FOUC 対応 */}
@@ -31,7 +28,7 @@ export const Card: FC<Props> = ({
               <Link
                 href={{
                   pathname: `/stadiums/${id}`,
-                  query: { from: `${pathname}?${searchParams}` },
+                  // query: { from: `${pathname}?${searchParams}` },
                 }}
               >
                 <Title fz="md" order={3}>
