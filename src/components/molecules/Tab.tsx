@@ -13,7 +13,11 @@ export const Tab = ({
   };
 
   return (
-    <Tabs {...props} defaultValue={category} onChange={handleCategoryChange}>
+    <Tabs
+      {...props}
+      defaultValue={category ?? "all"}
+      onChange={handleCategoryChange}
+    >
       <Tabs.List>
         <Tabs.Tab px="xl" fz="md" fw="bold" value="all">
           <Text>全て</Text>
