@@ -6,7 +6,7 @@ export default function CategoryLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <Box className="main" py="sm">
+    <Box className="main">
       <Container fluid>{children}</Container>
     </Box>
   );

@@ -1,12 +1,15 @@
 import { ComponentProps, FC } from "react";
 import NextImage from "next/image";
-import { Image as MantineImage } from "@mantine/core";
+import { Image as MantineImage, MantineRadius } from "@mantine/core";
 
-type Props = ComponentProps<typeof NextImage>;
+type Props = ComponentProps<typeof NextImage> & {
+  radius?: MantineRadius;
+};
 
 export const Image: FC<Props> = ({
   width = "100%",
   height = "200px",
+  radius = "md",
   ...props
 }) => {
   return (
@@ -21,7 +24,7 @@ export const Image: FC<Props> = ({
       <MantineImage
         component={NextImage}
         fallbackSrc="/images/no_image.jpg"
-        radius="md"
+        radius={radius}
         placeholder="blur"
         blurDataURL="/images/no_image.jpg"
         sizes="100vw"
