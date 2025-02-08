@@ -90,4 +90,16 @@ export type Stadium = ReturnType<typeof getStadium> extends Promise<infer U>
   ? U
   : never;
 
-export type Stadium = Stadiums[number];
+export const getTags = async () => {
+  const tags = await prisma.tags.findMany({
+    select: { id: true, name: true },
+    orderBy: { id: "asc" },
+  });
+  return tags;
+};
+
+export type Tags = ReturnType<typeof getTags> extends Promise<infer U>
+  ? U
+  : never;
+
+export type Tag = Tags[number];
