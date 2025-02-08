@@ -17,7 +17,8 @@ export const Card: FC<Props> = ({
 }) => {
   return (
     <Grid.Col miw="280px" span={{ xs: 12, sm: 6, md: 4, lg: 3, xl: 2 }}>
-      <Paper radius="sm" p="sm">
+      {/* TODO: FOUC 対応 */}
+      <Paper bg="#242424" radius="sm" p="sm">
         <Flex direction="column" gap="xs">
           <Image alt="スタジアム画像" src={imageUrl ?? ""} />
           <Flex flex={1} justify="left" direction="column">
