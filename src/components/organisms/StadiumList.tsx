@@ -23,7 +23,7 @@ const normalize = (str: string | null) => {
     : "";
 };
 
-const filterByQuery = (stadium: Stadium, query: string) => {
+const filterBySearchQuery = (stadium: Stadium, query: string) => {
   return (
     normalize(stadium.name).includes(query) ||
     normalize(stadium.homeTeam).includes(query) ||
@@ -36,14 +36,18 @@ const filterByQuery = (stadium: Stadium, query: string) => {
 
 export const StadiumList: FC<Props> = ({ stadiumList }) => {
   const [searchWord] = useQueryState("search");
+  const [category] = useQueryState("category");
 
-  const filteringList = useMemo(
-    () =>
-      stadiumList.filter((stadium) =>
-        filterByQuery(stadium, normalize(searchWord))
-      ),
-    [searchWord, stadiumList]
-  );
+  const filteringList = useMemo(() => {
+    const filteredStadiumsBySearchQuery = stadiumList.filter((stadium) =>
+      filterBySearchQuery(stadium, normalize(searchWord))
+    );
+    return category === "all" || !category
+      ? filteredStadiumsBySearchQuery
+      : filteredStadiumsBySearchQuery.filter((stadium) =>
+          stadium.categories.includes(category)
+        );
+  }, [searchWord, stadiumList, category]);
 
   return (
     <Grid>

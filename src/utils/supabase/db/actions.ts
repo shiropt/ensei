@@ -60,6 +60,7 @@ export const getStadiums = async ({ category }: Params) => {
     return {
       ...rest,
       homeTeams: team_stadium.map((team) => team.teams.name).join(", "),
+      categories: team_stadium.map((team) => team.teams.category),
     };
   });
 };
