@@ -22,6 +22,8 @@ export const Image: FC<Props> = ({
         component={NextImage}
         fallbackSrc="/images/no_image.jpg"
         radius="md"
+        placeholder="blur"
+        blurDataURL="/images/no_image.jpg"
         sizes="100vw"
         fill
         style={{
