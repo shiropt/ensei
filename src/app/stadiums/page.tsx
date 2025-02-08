@@ -1,18 +1,20 @@
 export const dynamic = "force-static";
 
-import { StadiumList } from "@/components/organisms/StadiumList";
-import { FallbackStadiumList } from "@/components/organisms/StadiumList.fallback";
-import { getStadiums } from "@/utils/supabase/db/actions";
+import { Tab } from "@/components/molecules/Tab";
+import { FallbackStadiumList } from "@/components/organisms/StadiumList/fallback";
+import { Fetcher } from "@/components/organisms/StadiumList/Fetcher";
+import { Title } from "@mantine/core";
 import { Suspense } from "react";
 
 export default async function Home() {
-  const stadiums = await getStadiums({
-    category: "all",
-  });
   return (
     <>
+      <Title my="md" order={2} fz="xl">
+        スタジアム一覧
+      </Title>
+      <Tab mb="md" />
       <Suspense fallback={<FallbackStadiumList />}>
-        <StadiumList stadiumList={stadiums} />
+        <Fetcher />
       </Suspense>
     </>
   );
