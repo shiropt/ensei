@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
       // Basic redirect
       {
         source: "/",
-        destination: "/category",
+        destination: "/stadiums",
         permanent: true,
       },
     ];

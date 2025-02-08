@@ -14,6 +14,8 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  /* TODO: FOUC 対応 */
+  background: #242424;
 }
 
 body {
@@ -49,8 +51,16 @@ dt {
   margin-right: 0.25rem;
 }
 
-@media (min-width: 768px) {
-  .main {
-    margin-top: 70px;
+.main {
+  margin-top: 70px;
+}
+@media (min-width: 550px) {
+  .stadium-detail__mobile {
+    display: none;
+  }
+}
+@media (max-width: 550px) {
+  .stadium-detail__desktop {
+    display: none;
   }
 }

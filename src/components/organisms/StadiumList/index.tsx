@@ -1,13 +1,13 @@
 "use client";
 import { Card } from "@/components/molecules/Card";
-import { Stadium, Stadiums } from "@/utils/supabase/db/actions";
+import { Stadiums } from "@/utils/supabase/db/actions";
 import { Grid } from "@mantine/core";
 import { useQueryState } from "nuqs";
 
 import { FC, useMemo } from "react";
 
 type Props = {
-  stadiumList: Stadiums;
+  stadiums: Stadiums;
 };
 
 const normalize = (str: string | null) => {
@@ -23,7 +23,7 @@ const normalize = (str: string | null) => {
     : "";
 };
 
-const filterByQuery = (stadium: Stadium, query: string) => {
+const filterBySearchQuery = (stadium: Stadiums[number], query: string) => {
   return (
     normalize(stadium.name).includes(query) ||
     normalize(stadium.homeTeam).includes(query) ||
@@ -34,16 +34,20 @@ const filterByQuery = (stadium: Stadium, query: string) => {
   );
 };
 
-export const StadiumList: FC<Props> = ({ stadiumList }) => {
+export const StadiumList: FC<Props> = ({ stadiums }) => {
   const [searchWord] = useQueryState("search");
+  const [category] = useQueryState("category");
 
-  const filteringList = useMemo(
-    () =>
-      stadiumList.filter((stadium) =>
-        filterByQuery(stadium, normalize(searchWord))
-      ),
-    [searchWord, stadiumList]
-  );
+  const filteringList = useMemo(() => {
+    const filteredStadiumsBySearchQuery = stadiums.filter((stadium) =>
+      filterBySearchQuery(stadium, normalize(searchWord))
+    );
+    return category === "all" || !category
+      ? filteredStadiumsBySearchQuery
+      : filteredStadiumsBySearchQuery.filter((stadium) =>
+          stadium.categories.includes(category)
+        );
+  }, [searchWord, stadiums, category]);
 
   return (
     <Grid>

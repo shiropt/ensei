@@ -60,12 +60,46 @@ export const getStadiums = async ({ category }: Params) => {
     return {
       ...rest,
       homeTeams: team_stadium.map((team) => team.teams.name).join(", "),
+      categories: team_stadium.map((team) => team.teams.category),
     };
   });
+};
+
+export const getStadium = async (id: number) => {
+  const stadium = await prisma.stadiums.findUnique({
+    where: { id },
+    include: {
+      team_stadium: {
+        include: {
+          teams: true,
+        },
+      },
+    },
+  });
+  return {
+    ...stadium,
+    homeTeams: stadium?.team_stadium.map((team) => team.teams.name).join(", "),
+  };
 };
 
 export type Stadiums = ReturnType<typeof getStadiums> extends Promise<infer U>
   ? U
   : never;
 
-export type Stadium = Stadiums[number];
+export type Stadium = ReturnType<typeof getStadium> extends Promise<infer U>
+  ? U
+  : never;
+
+export const getTags = async () => {
+  const tags = await prisma.tags.findMany({
+    select: { id: true, name: true },
+    orderBy: { id: "asc" },
+  });
+  return tags;
+};
+
+export type Tags = ReturnType<typeof getTags> extends Promise<infer U>
+  ? U
+  : never;
+
+export type Tag = Tags[number];
