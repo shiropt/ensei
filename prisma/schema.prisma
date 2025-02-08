@@ -29,7 +29,7 @@ model stadiums {
   access       String?
   rating       Int?           @default(0) @db.SmallInt
   description  String?
-  location     String?
+  address      String?
   shortName    String?
   imageUrl     String?
   stadium_tags stadium_tags[]

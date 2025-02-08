@@ -29,7 +29,7 @@ const filterBySearchQuery = (stadium: Stadiums[number], query: string) => {
     normalize(stadium.homeTeam).includes(query) ||
     normalize(stadium.description).includes(query) ||
     normalize(stadium.shortName).includes(query) ||
-    normalize(stadium.location).includes(query) ||
+    normalize(stadium.address).includes(query) ||
     normalize(stadium.access).includes(query)
   );
 };
