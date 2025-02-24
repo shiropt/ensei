@@ -1,11 +1,15 @@
 import { IconWithText } from "@/components/molecules/IconWithText";
-import { Footer } from "@/components/organisms/Matches/Footer";
-import { MatchCard } from "@/components/organisms/Matches/MatchCard";
-import { FallbackStadiumDetail } from "@/components/organisms/StadiumDetail/fallback";
-import { getMatchesByTeam, getTeam } from "@/utils/supabase/db/actions";
-import { Container, Paper, NavLink } from "@mantine/core";
+import { TeamDetail } from "@/components/organisms/Teams/Detail";
+import { FallbackTeamDetail } from "@/components/organisms/Teams/Detail/fallback";
+import { Container, NavLink } from "@mantine/core";
 import Link from "next/link";
 import { Suspense } from "react";
+
+export async function generateStaticParams() {
+  return Array.from({ length: 60 }, (_, i) => (i + 1).toString()).map((id) => ({
+    id,
+  }));
+}
 
 export default async function Page({
   params,
@@ -17,13 +21,6 @@ export default async function Page({
   const { id } = await params;
   const { match_ym } = await searchParams;
 
-  const team = await getTeam(parseInt(id, 10));
-  const matches = await getMatchesByTeam(
-    parseInt(id, 10),
-    match_ym ?? new Date().getFullYear() + "-" + (new Date().getMonth() + 1)
-  );
-
-  console.log(match_ym);
   return (
     <Container className="main" fluid>
       <NavLink
@@ -32,15 +29,9 @@ export default async function Page({
         component={Link}
         href={"/teams"}
       ></NavLink>
-      <Suspense fallback={<FallbackStadiumDetail />}>
-        <Paper mb="md" withBorder p="sm">
-          {team?.name}
-        </Paper>
-        {matches.map((match) => {
-          return <MatchCard key={match.id} match={match} />;
-        })}
+      <Suspense fallback={<FallbackTeamDetail />}>
+        <TeamDetail id={id} match_ym={match_ym}></TeamDetail>
       </Suspense>
-      <Footer teamId={team?.id} match_ym={match_ym} />
     </Container>
   );
 }
