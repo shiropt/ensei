@@ -18,17 +18,55 @@ const optimizedKey = {
 };
 
 const optimizeDate = (item: Record<string, unknown>) => {
-  const rawDate = item.date ? String(item.date) : "";
+  if (typeof item.year !== "string") {
+    throw new Error("Invalid year format");
+  }
 
-  const cleanedDate = rawDate
+  if (
+    typeof item.date !== "string" ||
+    !item.date.trim() ||
+    item.date.includes("未定")
+  ) {
+    return null; // 日付が未定なら null を返す
+  }
+
+  const kickoffTime =
+    typeof item.kickoffTime === "string" &&
+    item.kickoffTime.trim() &&
+    !item.kickoffTime.includes("未定")
+      ? item.kickoffTime
+      : "00:00";
+
+  // 日本語の曜日や記号を削除し、スラッシュをハイフンに変換
+  const cleanedDate = item.date
     .replace(/[()日月火水木金土・祝休]/g, "")
     .replace(/\//g, "-")
     .trim();
 
-  const dateString = `${item.year}-${cleanedDate}`;
-  const timeString = item.kickoffTime ? `${item.kickoffTime}:00` : "00:00:00";
+  if (!/^\d{1,2}-\d{1,2}$/.test(cleanedDate)) {
+    return null; // 無効な日付なら null を返す
+  }
 
-  return `${dateString} ${timeString}`;
+  // YYYY-MM-DD 形式を作成
+  const dateString = `${item.year.padStart(4, "0")}-${cleanedDate.padStart(
+    5,
+    "0"
+  )}`;
+
+  // hh:mm:ss 形式に変換
+  const timeString = kickoffTime.includes(":")
+    ? `${kickoffTime}:00`
+    : "00:00:00";
+
+  // `+09:00` を追加して JST (日本時間) としてパース
+  const date = new Date(`${dateString}T${timeString}+09:00`);
+
+  if (isNaN(date.getTime())) {
+    return null; // 無効な Date オブジェクトなら null を返す
+  }
+
+  // UTC に変換して ISO 8601 形式で返す
+  return date.toISOString();
 };
 
 const writeToJson = (json: object[]) => {
@@ -43,11 +81,13 @@ const writeToJson = (json: object[]) => {
   );
   const optimized = optimizedKeys.map((item) => {
     const text = item.section ?? "";
-    const section = text.match(/\p{N}+/u);
-    const sectionAsNumber =
-      Array.isArray(section) && section.length > 0
-        ? parseInt(String.fromCharCode(section[0].charCodeAt(0) - 0xfee0), 10)
-        : null;
+    const normalizedText = text.replace(/[０-９]/g, (s: string) =>
+      String.fromCharCode(s.charCodeAt(0) - 0xfee0)
+    );
+    const match = normalizedText.match(/\d+/);
+    const sectionAsNumber = normalizedText.match(/\d+/)
+      ? Number(match[0])
+      : null;
     const date = optimizeDate(item);
 
     return {
@@ -138,10 +178,9 @@ const generateSQL = () => {
   console.log("✅ SQL ファイルを生成しました: insert_matches.sql");
 };
 
-// 2025年のリーグ戦とルヴァンカップの試合日程
+// 2025年のリーグ戦試合日程
 const url =
-  "https://data.j-league.or.jp/SFMS01/search?competition_years=2025&competition_frame_ids=1&competition_frame_ids=11&competition_frame_ids=2&competition_frame_ids=3&tv_relay_station_name=&print=true";
-
+  "https://data.j-league.or.jp/SFMS01/search?competition_years=2025&competition_frame_ids=1&competition_frame_ids=2&competition_frame_ids=3&tv_relay_station_name=";
 export async function GET() {
   const response = await fetch(url);
   const body = await response.text();
