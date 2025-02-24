@@ -11,8 +11,8 @@ export default function Teams() {
         <Title my="md" order={2} fz="xl">
           クラブ一覧
         </Title>
-        <Tab mb="md" />
         <Suspense fallback={<FallbackTeamList />}>
+          <Tab mb="md" />
           <Fetcher />
         </Suspense>
       </Box>
