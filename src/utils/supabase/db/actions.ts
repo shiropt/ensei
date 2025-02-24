@@ -103,3 +103,81 @@ export type Tags = ReturnType<typeof getTags> extends Promise<infer U>
   : never;
 
 export type Tag = Tags[number];
+
+export const getTeams = async () => {
+  const teams = await prisma.teams.findMany({
+    orderBy: { id: "asc" },
+  });
+  return teams;
+};
+
+export type Teams = ReturnType<typeof getTeams> extends Promise<infer U>
+  ? U
+  : never;
+
+export const getTeam = async (id: number) => {
+  const now = new Date();
+  const team = await prisma.teams.findUnique({
+    where: { id },
+    include: {
+      team_stadium: {
+        include: {
+          stadiums: true,
+        },
+      },
+      matches_matches_away_team_idToteams: {
+        where: {
+          date: {
+            gte: new Date(now.getFullYear(), now.getMonth(), 1),
+            lte: new Date(now.getFullYear(), now.getMonth() + 1, 1),
+          },
+        },
+      },
+      matches_matches_home_team_idToteams: true,
+    },
+  });
+
+  return team;
+};
+
+export const getMatchesByTeam = async (teamId: number, gte: string) => {
+  const from = new Date(gte);
+  const lte = new Date(from.getFullYear(), from.getMonth() + 1, 1);
+  const matches = await prisma.matches.findMany({
+    where: {
+      OR: [
+        {
+          home_team_id: teamId,
+        },
+        {
+          away_team_id: teamId,
+        },
+      ],
+      date: {
+        gte: from,
+        lte,
+      },
+    },
+    include: {
+      teams_matches_home_team_idToteams: true,
+      teams_matches_away_team_idToteams: true,
+      stadiums: true,
+    },
+  });
+  return matches.map((match) => {
+    return {
+      id: match.id,
+      section: match.section,
+      homeTeam: match.teams_matches_home_team_idToteams?.short_name,
+      awayTeam: match.teams_matches_away_team_idToteams?.short_name,
+      stadium: match.stadiums?.shortName,
+      date: match.date,
+    };
+  });
+};
+
+export type Matches = ReturnType<typeof getMatchesByTeam> extends Promise<
+  infer U
+>
+  ? U
+  : never;

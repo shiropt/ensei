@@ -10,8 +10,8 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
-    "@mantine/core": "^7.15.3",
-    "@mantine/hooks": "^7.15.3",
+    "@mantine/core": "^7.17.0",
+    "@mantine/hooks": "^7.17.0",
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.47.12",
     "@tabler/icons-react": "^3.28.1",

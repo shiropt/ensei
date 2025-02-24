@@ -1,13 +1,23 @@
 "use client";
-import { CloseButton, Flex, Input, Title } from "@mantine/core";
+import {
+  Box,
+  CloseButton,
+  Drawer,
+  Flex,
+  Input,
+  NavLink,
+  Title,
+} from "@mantine/core";
 import classes from "./header.module.css";
 import { useQueryState } from "nuqs";
 import { useDebouncedCallback } from "use-debounce";
 import { useEffect, useState } from "react";
-
+import { useDisclosure } from "@mantine/hooks";
+import { Burger } from "@mantine/core";
 export const Header = () => {
   const [searchQuery, setSearchQuery] = useQueryState("search");
   const [localInput, setLocalInput] = useState(searchQuery ?? ""); // 入力欄のローカル状態
+  const [opened, { toggle }] = useDisclosure();
 
   const debouncedUpdateQuery = useDebouncedCallback((value: string) => {
     if (!value) {
@@ -53,6 +63,32 @@ export const Header = () => {
             />
           }
         ></Input>
+        <Burger
+          opened={opened}
+          onClick={toggle}
+          aria-label="Toggle navigation"
+        />
+        <Drawer
+          position="right"
+          opened={opened}
+          onClose={toggle}
+          title="Authentication"
+        >
+          <Box mt="md">
+            <NavLink
+              styles={{ root: { borderBottom: "1px solid white" } }}
+              href="/teams"
+              label="クラブ"
+              py="md"
+            />
+            <NavLink
+              styles={{ root: { borderBottom: "1px solid white" } }}
+              href="/stadiums"
+              label="スタジアム"
+              py="md"
+            />
+          </Box>
+        </Drawer>
       </Flex>
     </header>
   );
