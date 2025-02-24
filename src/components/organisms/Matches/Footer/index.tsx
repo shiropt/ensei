@@ -3,6 +3,7 @@ import { Box, Flex } from "@mantine/core";
 import { FC } from "react";
 import { NavLink } from "@mantine/core";
 import Link from "next/link";
+import { formatJstTime } from "@/utils/functions/date";
 
 type Props = {
   teamId?: number;
@@ -11,26 +12,36 @@ type Props = {
 
 export const Footer: FC<Props> = ({ teamId, match_ym }) => {
   const date = new Date(match_ym ?? "");
-  const y = date.getFullYear();
-  const m = date.getMonth() + 1;
+  const { year, month } = formatJstTime(date);
+  const yearAsNumber = parseInt(year ?? "", 10);
+  const monthAsNumber = parseInt(month ?? "", 10);
+
   return (
     <Flex justify="space-between">
       <Box>
-        <NavLink
-          href={`/teams/${teamId}?match_ym=${y}-${m - 1}`}
-          component={Link}
-          leftSection={<IconWithText text="前へ" icon="chevronLeft" />}
-        />
+        {monthAsNumber > 1 && (
+          <NavLink
+            href={`/teams/${teamId}?match_ym=${yearAsNumber}-${
+              monthAsNumber - 1
+            }`}
+            component={Link}
+            leftSection={<IconWithText text="前へ" icon="chevronLeft" />}
+          />
+        )}
       </Box>
       <Box>
-        <NavLink
-          pr="0"
-          href={`/teams/${teamId}?match_ym=${y}-${m + 1}`}
-          component={Link}
-          leftSection={
-            <IconWithText text="次へ" icon="chevronRight" rightIcon />
-          }
-        />
+        {monthAsNumber < 12 && (
+          <NavLink
+            pr="0"
+            href={`/teams/${teamId}?match_ym=${yearAsNumber}-${
+              monthAsNumber + 1
+            }`}
+            component={Link}
+            leftSection={
+              <IconWithText text="次へ" icon="chevronRight" rightIcon />
+            }
+          />
+        )}
       </Box>
     </Flex>
   );

@@ -1,5 +1,7 @@
 import { MatchCard } from "@/components/organisms/Matches/MatchCard";
+import { formatJstTime } from "@/utils/functions/date";
 import { getMatchesByTeam } from "@/utils/supabase/db/actions";
+import { Text } from "@mantine/core";
 import { FC } from "react";
 
 type Props = {
@@ -8,12 +10,14 @@ type Props = {
 };
 
 export const MatchList: FC<Props> = async ({ id, match_ym }) => {
+  const { year, month } = formatJstTime(new Date());
   const matches = await getMatchesByTeam(
     parseInt(id, 10),
-    match_ym ?? new Date().getFullYear() + "-" + (new Date().getMonth() + 1)
+    match_ym ?? year + "-" + month
   );
   return (
     <>
+      {matches.length === 0 && <Text>試合がありません</Text>}
       {matches.map((match) => {
         return <MatchCard key={match.id} match={match} />;
       })}
