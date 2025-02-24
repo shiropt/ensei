@@ -6,13 +6,24 @@ import {
   IconStar,
   IconUsers,
   IconArrowBackUp,
+  IconChevronLeft,
+  IconChevronRight,
+  // IconBefo
 } from "@tabler/icons-react";
 
-type IconType = "home" | "mapPin" | "star" | "users" | "arrowBackUp";
+type IconType =
+  | "home"
+  | "mapPin"
+  | "star"
+  | "users"
+  | "arrowBackUp"
+  | "chevronLeft"
+  | "chevronRight";
 
 type Props = {
   icon: IconType;
   text?: string | null;
+  rightIcon?: boolean;
 } & FlexProps;
 
 const getIcon = (icon: IconType) => {
@@ -27,15 +38,33 @@ const getIcon = (icon: IconType) => {
       return <IconUsers size={12} />;
     case "arrowBackUp":
       return <IconArrowBackUp size={12} />;
+    case "chevronLeft":
+      return <IconChevronLeft size={12} />;
+    case "chevronRight":
+      return <IconChevronRight size={12} />;
   }
 };
 
-export const IconWithText: FC<Props> = ({ text, icon, ...props }) => {
+export const IconWithText: FC<Props> = ({
+  text,
+  icon,
+  rightIcon,
+  ...props
+}) => {
   if (!text) return null;
   return (
     <Flex {...props} align="baseline" gap={4}>
-      {getIcon(icon)}
-      <Text fz="sm">{text}</Text>
+      {rightIcon ? (
+        <>
+          <Text fz="sm">{text}</Text>
+          {getIcon(icon)}
+        </>
+      ) : (
+        <>
+          {getIcon(icon)}
+          <Text fz="sm">{text}</Text>
+        </>
+      )}
     </Flex>
   );
 };
