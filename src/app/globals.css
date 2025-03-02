@@ -54,13 +54,3 @@ dt {
 .main {
   margin-top: 70px;
 }
-@media (min-width: 550px) {
-  .stadium-detail__mobile {
-    display: none;
-  }
-}
-@media (max-width: 550px) {
-  .stadium-detail__desktop {
-    display: none;
-  }
-}
