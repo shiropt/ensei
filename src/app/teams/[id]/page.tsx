@@ -1,8 +1,7 @@
-import { IconWithText } from "@/components/molecules/IconWithText";
+import { BackPage } from "@/components/molecules/BackPage";
 import { TeamDetail } from "@/components/organisms/Teams/Detail";
 import { FallbackTeamDetail } from "@/components/organisms/Teams/Detail/fallback";
-import { Container, NavLink } from "@mantine/core";
-import Link from "next/link";
+import { Container } from "@mantine/core";
 import { Suspense } from "react";
 
 export async function generateStaticParams() {
@@ -23,12 +22,7 @@ export default async function Page({
 
   return (
     <Container className="main" fluid>
-      <NavLink
-        pl="0"
-        leftSection={<IconWithText pt="xs" text="戻る" icon="arrowBackUp" />}
-        component={Link}
-        href={"/teams"}
-      ></NavLink>
+      <BackPage />
       <Suspense fallback={<FallbackTeamDetail />}>
         <TeamDetail id={id} match_ym={match_ym}></TeamDetail>
       </Suspense>
