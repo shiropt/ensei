@@ -32,6 +32,8 @@ model stadiums {
   address      String?
   shortName    String?
   imageUrl     String?
+  lat          Float?
+  lng          Float?
   matches      matches[]
   stadium_tags stadium_tags[]
   team_stadium team_stadium[]
