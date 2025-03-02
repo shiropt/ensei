@@ -172,6 +172,7 @@ export const getMatchesByTeam = async (teamId: number, gte: string) => {
       awayTeam: match.teams_matches_away_team_idToteams?.short_name,
       stadium: match.stadiums?.shortName,
       date: match.date,
+      stadiumId: match.stadium_id,
     };
   });
 };
