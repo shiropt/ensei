@@ -1,6 +1,7 @@
 import { formatJstTime } from "@/utils/functions/date";
 import { Matches } from "@/utils/supabase/db/actions";
-import { Divider, Flex, Paper, Text } from "@mantine/core";
+import { Box, Divider, Flex, NavLink, Paper, Text } from "@mantine/core";
+import Link from "next/link";
 import { FC } from "react";
 
 type Props = {
@@ -12,11 +13,17 @@ export const MatchCard: FC<Props> = ({ match }) => {
 
   return (
     <Paper mb="sm" withBorder key={match.id}>
-      <Flex justify="space-between" px="sm" py="4px">
+      <Flex justify="space-between" align="center" px="sm">
         <Text>
           {`第${match.section}節`} {month}月{day}日
         </Text>
-        <Text>{match.stadium}</Text>
+        <Box>
+          <NavLink
+            component={Link}
+            label={match.stadium}
+            href={`/stadiums/${match.stadiumId}`}
+          />
+        </Box>
       </Flex>
       <Divider />
       <Flex px="lg" py="sm" justify="space-between">
