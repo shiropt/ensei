@@ -1,16 +1,18 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
+import pluginJs from "@eslint/js";
 import { FlatCompat } from "@eslint/eslintrc";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
 const compat = new FlatCompat({
-  baseDirectory: __dirname,
+  baseDirectory: import.meta.dirname,
+  recommendedConfig: pluginJs.configs.recommended,
 });
 
-const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+const nextConfig = [
+  ...compat.config({
+    extends: ["eslint:recommended", "next"],
+  }),
 ];
 
-export default eslintConfig;
+/** @type {import('eslint').Linter.Config[]} */
+const config = [...nextConfig, pluginJs.configs.recommended];
+
+export default config;
