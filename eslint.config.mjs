@@ -3,6 +3,7 @@ import { FlatCompat } from "@eslint/eslintrc";
 import functional from "eslint-plugin-functional";
 import tseslint from "@typescript-eslint/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
+import reactPlugin from "eslint-plugin-react";
 
 const compat = new FlatCompat({
   baseDirectory: import.meta.dirname,
@@ -15,7 +16,7 @@ const nextConfig = [
   }),
 ];
 
-/** @type {import('eslint').Linter.FlatConfig[]} */
+/** @type {import('eslint').Linter.Config[]} */
 const config = [
   ...nextConfig,
   pluginJs.configs.recommended,
@@ -31,6 +32,7 @@ const config = [
     plugins: {
       "@typescript-eslint": tseslint,
       functional,
+      react: reactPlugin,
     },
     rules: {
       ...tseslint.configs.recommended.rules,
