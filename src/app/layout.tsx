@@ -10,7 +10,7 @@ import {
 } from "@mantine/core";
 import { Header } from "@/components/ui/Header";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
-import { Suspense } from "react";
+import React, { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

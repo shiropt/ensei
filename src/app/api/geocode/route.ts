@@ -1,3 +1,4 @@
+/* eslint-disable functional/no-conditional-statements */
 import { NextResponse } from "next/server";
 import path from "path";
 import fs from "fs";

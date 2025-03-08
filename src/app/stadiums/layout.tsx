@@ -1,4 +1,5 @@
 import { Box, Container } from "@mantine/core";
+import React from "react";
 
 export default function CategoryLayout({
   children,

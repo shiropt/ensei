@@ -1,6 +1,7 @@
 "use client";
 import { Tabs, TabsProps, Text } from "@mantine/core";
 import { useQueryState } from "nuqs";
+import React from "react";
 
 export const Tab = ({
   children,

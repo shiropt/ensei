@@ -2,6 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 export async function updateSession(request: NextRequest) {
+  // eslint-disable-next-line functional/no-let
   let supabaseResponse = NextResponse.next({
     request,
   });
@@ -46,6 +47,7 @@ export async function updateSession(request: NextRequest) {
   ) {
     // no user, potentially respond by redirecting the user to the login page
     const url = request.nextUrl.clone();
+    // eslint-disable-next-line functional/immutable-data
     url.pathname = "/signin";
     return NextResponse.redirect(url);
   }

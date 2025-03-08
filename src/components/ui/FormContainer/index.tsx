@@ -1,5 +1,5 @@
 import { Container, Flex, Title } from "@mantine/core";
-import { FC } from "react";
+import React, { FC } from "react";
 
 type Props = {
   title: string;

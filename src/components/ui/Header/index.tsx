@@ -11,7 +11,7 @@ import {
 import classes from "./header.module.css";
 import { useQueryState } from "nuqs";
 import { useDebouncedCallback } from "use-debounce";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDisclosure } from "@mantine/hooks";
 import { Burger } from "@mantine/core";
 export const Header = () => {
@@ -22,9 +22,9 @@ export const Header = () => {
   const debouncedUpdateQuery = useDebouncedCallback((value: string) => {
     if (!value) {
       setSearchQuery(null);
-    } else {
-      setSearchQuery(value);
+      return;
     }
+    setSearchQuery(value);
   }, 300);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

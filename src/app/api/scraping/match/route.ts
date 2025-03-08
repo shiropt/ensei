@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable functional/no-conditional-statements */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { NextResponse } from "next/server";
 import * as cheerio from "cheerio";
@@ -19,6 +19,7 @@ const optimizedKey = {
 
 const optimizeDate = (item: Record<string, unknown>) => {
   if (typeof item.year !== "string") {
+    // eslint-disable-next-line functional/no-throw-statements
     throw new Error("Invalid year format");
   }
 
@@ -126,6 +127,7 @@ const mappingId = () => {
     ])
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const mappedMatches = matches.map((match: Record<string, any>) => ({
     ...match,
     home_team_id: teamMap[match.home] || null,
@@ -148,6 +150,7 @@ const generateSQL = () => {
   const jsonFilePath = path.resolve("data/matches", "optimized_matches.json"); // 事前に保存した JSON ファイル
   const jsonData = JSON.parse(fs.readFileSync(jsonFilePath, "utf-8"));
   const sqlStatements = jsonData
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     .map((match: Record<string, any>) => {
       const {
         date,
@@ -192,10 +195,12 @@ export async function GET() {
   // テーブルデータを取得
   const tableData = $("tbody tr")
     .map((_, tr) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const row: Record<string, any> = {};
       $(tr)
         .find("td")
         .each((index, td) => {
+          // eslint-disable-next-line functional/immutable-data
           row[headers[index]] = $(td).text().trim();
         });
       return row;
