@@ -26,7 +26,7 @@ const normalize = (str: string | null) => {
 const filterBySearchQuery = (stadium: Stadiums[number], query: string) => {
   return (
     normalize(stadium.name).includes(query) ||
-    normalize(stadium.homeTeam).includes(query) ||
+    normalize(stadium.homeTeams).includes(query) ||
     normalize(stadium.description).includes(query) ||
     normalize(stadium.shortName).includes(query) ||
     normalize(stadium.address).includes(query) ||

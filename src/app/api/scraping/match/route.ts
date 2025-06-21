@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import * as cheerio from "cheerio";
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/utils/supabase/auth/server";
 import type { MatchScrapingData, ApiResponse } from "@/types";
 
 // 定数定義

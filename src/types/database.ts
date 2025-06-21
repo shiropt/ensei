@@ -4,14 +4,14 @@ import type { Prisma } from '@prisma/client';
 // Prismaの生成型を拡張
 export type StadiumWithRelations = Prisma.stadiumsGetPayload<{
   include: {
-    teams: {
+    team_stadium: {
       include: {
-        team: true;
+        teams: true;
       };
     };
-    tags: {
+    stadium_tags: {
       include: {
-        tag: true;
+        tags: true;
       };
     };
   };
@@ -19,9 +19,9 @@ export type StadiumWithRelations = Prisma.stadiumsGetPayload<{
 
 export type TeamWithRelations = Prisma.teamsGetPayload<{
   include: {
-    stadiums: {
+    team_stadium: {
       include: {
-        stadium: true;
+        stadiums: true;
       };
     };
   };
@@ -29,8 +29,8 @@ export type TeamWithRelations = Prisma.teamsGetPayload<{
 
 export type MatchWithRelations = Prisma.matchesGetPayload<{
   include: {
-    homeTeam: true;
-    awayTeam: true;
-    stadium: true;
+    teams_matches_home_team_idToteams: true;
+    teams_matches_away_team_idToteams: true;
+    stadiums: true;
   };
 }>;

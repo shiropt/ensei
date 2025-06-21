@@ -10,33 +10,35 @@ export type Params = {
 // 明示的な型定義
 export interface StadiumListItem {
   id: number;
-  name: string;
+  name: string | null;
   address: string | null;
-  capacity: number | null;
-  latitude: number | null;
-  longitude: number | null;
+  capacity: bigint | null;
+  access: string | null;
   rating: number | null;
+  description: string | null;
   shortName: string | null;
+  imageUrl: string | null;
   homeTeams: string;
   categories: string[];
 }
 
 export interface StadiumDetail extends StadiumListItem {
-  homeTeams: string;
+  latitude: number | null;
+  longitude: number | null;
 }
 
 export interface TeamListItem {
   id: number;
   name: string;
-  short_name: string;
+  short_name: string | null;
   category: string | null;
 }
 
 export interface MatchListItem {
   id: number;
   section: number | null;
-  homeTeam: string | undefined;
-  awayTeam: string | undefined;
+  homeTeam: string | null | undefined;
+  awayTeam: string | null | undefined;
   stadium: string | null | undefined;
   date: Date | null;
   stadiumId: number | null;
@@ -100,9 +102,17 @@ export const getStadiums = async ({ category }: Params): Promise<StadiumListItem
     return stadiumsWithHomeTeams.map((stadiumsWithHomeTeam) => {
       const { team_stadium, ...rest } = stadiumsWithHomeTeam;
       return {
-        ...rest,
+        id: rest.id,
+        name: rest.name,
+        address: rest.address,
+        capacity: rest.capacity,
+        access: rest.access,
+        rating: rest.rating,
+        description: rest.description,
+        shortName: rest.shortName,
+        imageUrl: rest.imageUrl,
         homeTeams: team_stadium.map((team) => team.teams.name).join(", "),
-        categories: team_stadium.map((team) => team.teams.category),
+        categories: team_stadium.map((team) => team.teams.category).filter(Boolean) as string[],
       };
     });
   } catch {
@@ -126,9 +136,19 @@ export const getStadium = async (id: number): Promise<StadiumDetail | null> => {
     if (!stadium) return null;
     
     return {
-      ...stadium,
+      id: stadium.id,
+      name: stadium.name,
+      address: stadium.address,
+      capacity: stadium.capacity,
+      access: stadium.access,
+      rating: stadium.rating,
+      description: stadium.description,
+      shortName: stadium.shortName,
+      imageUrl: stadium.imageUrl,
+      latitude: stadium.lat,
+      longitude: stadium.lng,
       homeTeams: stadium.team_stadium.map((team) => team.teams.name).join(", "),
-      categories: stadium.team_stadium.map((team) => team.teams.category),
+      categories: stadium.team_stadium.map((team) => team.teams.category).filter(Boolean) as string[],
     };
   } catch {
     throw new AppError(`Failed to fetch stadium with id ${id}`, 500, 'FETCH_STADIUM_ERROR');
