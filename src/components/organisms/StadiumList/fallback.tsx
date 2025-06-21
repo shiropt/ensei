@@ -1,14 +1,16 @@
 import { FallbackCard } from "@/components/molecules/CardFallback";
 import { Grid } from "@mantine/core";
-
 import type { FC } from "react";
+import { generateArrayWithKeys } from "@/utils/functions/array";
 
 export const FallbackStadiumList: FC = async () => {
   return (
     <Grid>
-      {[...new Array(6)].map((_, i) => {
-        return <FallbackCard key={`stadium-fallback-${i}`} />;
-      })}
+      {generateArrayWithKeys(
+        6,
+        (_, key) => <FallbackCard key={key} />,
+        "stadium-fallback"
+      )}
     </Grid>
   );
 };

@@ -32,7 +32,7 @@ export const Tab = ({
           <Text>J3</Text>
         </Tabs.Tab>
       </Tabs.List>
-      {children && children}
+      {children}
     </Tabs>
   );
 };

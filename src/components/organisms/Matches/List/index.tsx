@@ -13,7 +13,7 @@ export const MatchList: FC<Props> = async ({ id, match_ym }) => {
   const { year, month } = formatJstTime(new Date());
   const matches = await getMatchesByTeam(
     parseInt(id, 10),
-    match_ym ?? `${year  }-${  month}`
+    match_ym ?? `${year}-${month}`
   );
   return (
     <>

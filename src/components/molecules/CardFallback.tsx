@@ -1,6 +1,7 @@
 import { Image } from "@/components/atoms/Image";
 import { Flex, Grid, Paper, Skeleton } from "@mantine/core";
 import type { FC } from "react";
+import { generateArrayWithKeys } from "@/utils/functions/array";
 
 interface CardFallbackProps {
   showImage?: boolean;
@@ -22,13 +23,17 @@ export const CardFallback: FC<CardFallbackProps> = ({
           )}
           <Flex flex={1} justify="left" direction="column">
             <Flex direction="column" gap="xs">
-              {[...Array(lines)].map((_, i) => (
-                <Skeleton 
-                  key={`card-fallback-line-${i}`} 
-                  h={i === 0 ? 24 : 16} 
-                  visible 
-                />
-              ))}
+              {generateArrayWithKeys(
+                lines,
+                (i, key) => (
+                  <Skeleton 
+                    key={key}
+                    h={i === 0 ? 24 : 16} 
+                    visible 
+                  />
+                ),
+                "card-fallback-line"
+              )}
             </Flex>
           </Flex>
         </Flex>

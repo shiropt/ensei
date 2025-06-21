@@ -1,5 +1,6 @@
 import { Skeleton, Grid } from "@mantine/core";
 import type { FC } from "react";
+import { generateArrayWithKeys } from "@/utils/functions/array";
 
 interface FallbackProps {
   count?: number;
@@ -32,18 +33,22 @@ export const Fallback: FC<FallbackProps> = ({
   if (variant === "card") {
     return (
       <Grid>
-        {[...Array(count)].map((_, i) => (
-          <div key={`skeleton-card-${i}`}>{renderSkeleton()}</div>
-        ))}
+        {generateArrayWithKeys(
+          count,
+          (_, key) => <div key={key}>{renderSkeleton()}</div>,
+          "skeleton-card"
+        )}
       </Grid>
     );
   }
 
   return (
     <>
-      {[...Array(count)].map((_, i) => (
-        <div key={`skeleton-${variant}-${i}`}>{renderSkeleton()}</div>
-      ))}
+      {generateArrayWithKeys(
+        count,
+        (_, key) => <div key={key}>{renderSkeleton()}</div>,
+        `skeleton-${variant}`
+      )}
     </>
   );
 };
