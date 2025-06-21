@@ -39,7 +39,7 @@ export const Card: FC<Props> = ({
             </Flex>
             {capacity && (
               <IconWithText
-                text={`${capacity.toLocaleString()}人`}
+                text={`${Number(capacity).toLocaleString()}人`}
                 icon="users"
               />
             )}

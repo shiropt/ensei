@@ -23,6 +23,8 @@ export const StadiumList: FC<Props> = ({ stadiums }) => {
         stadium.homeTeams,
         stadium.shortName,
         stadium.address,
+        stadium.access,
+        stadium.description,
       ], searchWord);
       
       // カテゴリでフィルタリング
