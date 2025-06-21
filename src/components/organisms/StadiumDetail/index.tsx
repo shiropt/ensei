@@ -11,8 +11,23 @@ type Props = {
 };
 
 export const StadiumDetail: FC<Props> = async ({ id }) => {
-  const { name, imageUrl, capacity, homeTeams, access, lat, lng, address } =
-    await getStadium(parseInt(id));
+  const stadium = await getStadium(parseInt(id));
+  
+  if (!stadium) {
+    return (
+      <Box>
+        <Paper withBorder p="sm" mb="md">
+          <Title fz="lg" order={2}>
+            スタジアムが見つかりません
+          </Title>
+        </Paper>
+      </Box>
+    );
+  }
+
+  const { name, imageUrl, capacity, homeTeams, access, address } = stadium;
+  const lat = stadium.latitude || 0;
+  const lng = stadium.longitude || 0;
 
   return (
     <Box>
@@ -28,7 +43,7 @@ export const StadiumDetail: FC<Props> = async ({ id }) => {
         <Box mb="sm">
           {capacity && (
             <IconWithText
-              text={`${capacity.toLocaleString()}人`}
+              text={`${Number(capacity).toLocaleString()}人`}
               icon="users"
             />
           )}
