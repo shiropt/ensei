@@ -14,7 +14,7 @@ export const BackPage: FC = () => {
         color="gray"
         onClick={() => router.back()}
       >
-        <IconWithText pt="xs" text="戻る" icon="arrowBackUp" />
+        <IconWithText pt="xs" text="戻る" icon="arrowLeft" />
       </Button>
     </div>
   );

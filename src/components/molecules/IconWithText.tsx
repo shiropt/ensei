@@ -5,10 +5,9 @@ import {
   IconMapPin,
   IconStar,
   IconUsers,
-  IconArrowBackUp,
+  IconArrowLeft,
   IconChevronLeft,
   IconChevronRight,
-  // IconBefo
 } from "@tabler/icons-react";
 
 type IconType =
@@ -16,7 +15,7 @@ type IconType =
   | "mapPin"
   | "star"
   | "users"
-  | "arrowBackUp"
+  | "arrowLeft"
   | "chevronLeft"
   | "chevronRight";
 
@@ -36,8 +35,8 @@ const getIcon = (icon: IconType) => {
       return <IconStar size={12} />;
     case "users":
       return <IconUsers size={12} />;
-    case "arrowBackUp":
-      return <IconArrowBackUp size={12} />;
+    case "arrowLeft":
+      return <IconArrowLeft size={12} />;
     case "chevronLeft":
       return <IconChevronLeft size={12} />;
     case "chevronRight":
