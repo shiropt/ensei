@@ -51,6 +51,7 @@ export async function withErrorHandling<T>(
     return { data };
   } catch (error) {
     const { message } = handleError(error);
+    // eslint-disable-next-line no-console
     console.error(errorMessage, error);
     return { error: message };
   }

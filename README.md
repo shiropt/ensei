@@ -2,17 +2,59 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+First, install dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+yarn install
 ```
+
+Then, run the development server:
+
+```bash
+yarn dev
+```
+
+## Development Scripts
+
+```bash
+# 開発サーバー起動（Turbopack使用）
+yarn dev
+
+# ビルド
+yarn build
+
+# プロダクションサーバー起動
+yarn start
+
+# リント
+yarn lint
+yarn lint:fix
+
+# フォーマット
+yarn format
+yarn format:check
+
+# 型チェック
+yarn type-check
+
+# Prismaマイグレーション実行
+yarn prisma migrate dev
+
+# Prismaクライアント生成
+yarn prisma generate
+
+# Prismaスタジオ起動（データベース確認）
+yarn prisma studio
+```
+
+## Code Quality Tools
+
+このプロジェクトでは以下のツールを使用してコード品質を維持しています：
+
+- **ESLint**: JavaScript/TypeScriptの静的解析
+- **Prettier**: コードフォーマッター
+- **TypeScript**: 型安全性の確保
+- **Prisma**: データベースORM
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 

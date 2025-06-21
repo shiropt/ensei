@@ -16,6 +16,7 @@ export const DataFetcher = async <T,>({
     const data = await fetchData();
     return <>{children(data)}</>;
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error("DataFetcher error:", error);
     return errorFallback || <div>データの取得に失敗しました</div>;
   }

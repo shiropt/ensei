@@ -27,6 +27,7 @@ const wrightToFile = (sql: string) => {
     fs.mkdirSync(outputDir, { recursive: true });
   }
   fs.writeFileSync(outputPath, sql, "utf-8");
+  // eslint-disable-next-line no-console
   console.log("✅ SQL ファイルを生成しました:update_locations.sql");
 };
 

@@ -173,6 +173,7 @@ export async function GET(): Promise<NextResponse<ApiResponse<{ count: number }>
         .select();
 
       if (error) {
+        // eslint-disable-next-line no-console
         console.error(`Batch ${i / batchSize + 1} failed:`, error);
       } else if (data) {
         totalInserted += data.length;
@@ -185,6 +186,7 @@ export async function GET(): Promise<NextResponse<ApiResponse<{ count: number }>
     });
 
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error("Match scraping error:", error);
     return NextResponse.json(
       {
