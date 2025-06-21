@@ -11,7 +11,7 @@ export default async function Home() {
       </Title>
       <Suspense fallback={<div>Loading...</div>}>
         <Tab mb="md" />
-        <StadiumFetcher />
+        <StadiumFetcher category="all" />
       </Suspense>
     </Box>
   );

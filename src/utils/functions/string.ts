@@ -44,7 +44,7 @@ export const matchesCategory = (
   }
   
   if (typeof itemCategories === "string") {
-    return itemCategories.includes(filterCategory);
+    return itemCategories === filterCategory;
   }
   
   return false;
