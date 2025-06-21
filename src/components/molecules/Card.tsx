@@ -4,11 +4,11 @@ import { IconWithText } from "@/components/molecules/IconWithText";
 import { Stadiums } from "@/utils/supabase/db/actions";
 import { Flex, Grid, Paper, Title } from "@mantine/core";
 import Link from "next/link";
-import { FC } from "react";
+import { FC, memo } from "react";
 
 type Props = Stadiums[number];
 
-export const Card: FC<Props> = ({
+export const Card: FC<Props> = memo(({
   id,
   name,
   homeTeams,
@@ -50,4 +50,6 @@ export const Card: FC<Props> = ({
       </Paper>
     </Grid.Col>
   );
-};
+});
+
+Card.displayName = "Card";
