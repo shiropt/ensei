@@ -1,7 +1,6 @@
 import { IconWithText } from "@/components/molecules/IconWithText";
-import { Box, Flex } from "@mantine/core";
+import { Box, Flex, NavLink } from "@mantine/core";
 import { FC } from "react";
-import { NavLink } from "@mantine/core";
 import Link from "next/link";
 import { formatJstTime } from "@/utils/functions/date";
 

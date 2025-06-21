@@ -1,6 +1,7 @@
 "use client";
 import {
   Box,
+  Burger,
   CloseButton,
   Drawer,
   Flex,
@@ -13,7 +14,6 @@ import { useQueryState } from "nuqs";
 import { useDebouncedCallback } from "use-debounce";
 import { useEffect, useState } from "react";
 import { useDisclosure } from "@mantine/hooks";
-import { Burger } from "@mantine/core";
 export const Header = () => {
   const [searchQuery, setSearchQuery] = useQueryState("search");
   const [localInput, setLocalInput] = useState(searchQuery ?? ""); // 入力欄のローカル状態
