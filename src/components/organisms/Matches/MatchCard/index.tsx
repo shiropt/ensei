@@ -2,13 +2,13 @@ import { formatJstTime } from "@/utils/functions/date";
 import { Matches } from "@/utils/supabase/db/actions";
 import { Box, Divider, Flex, NavLink, Paper, Text } from "@mantine/core";
 import Link from "next/link";
-import { FC } from "react";
+import { FC, memo } from "react";
 
 type Props = {
   match: Matches[number];
 };
 
-export const MatchCard: FC<Props> = ({ match }) => {
+export const MatchCard: FC<Props> = memo(({ match }) => {
   if (!match.date) {
     return (
       <Paper mb="sm" withBorder key={match.id}>
@@ -66,4 +66,6 @@ export const MatchCard: FC<Props> = ({ match }) => {
       </Flex>
     </Paper>
   );
-};
+});
+
+MatchCard.displayName = "MatchCard";
