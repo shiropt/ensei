@@ -1,8 +1,8 @@
 import { formatJstTime } from "@/utils/functions/date";
-import { Matches } from "@/utils/supabase/db/actions";
+import type { Matches } from "@/utils/supabase/db/actions";
 import { Box, Divider, Flex, NavLink, Paper, Text } from "@mantine/core";
 import Link from "next/link";
-import { FC } from "react";
+import type { FC } from "react";
 
 type Props = {
   match: Matches[number];

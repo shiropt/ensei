@@ -3,7 +3,7 @@ import { IconWithText } from "@/components/molecules/IconWithText";
 import { GoogleMap } from "@/components/molecules/GoogleMap";
 import { getStadium } from "@/utils/supabase/db/actions";
 import { Box, Flex, Paper, Text, Title } from "@mantine/core";
-import { FC } from "react";
+import type { FC } from "react";
 
 type Props = {
   id: string;
@@ -38,7 +38,7 @@ export const StadiumDetail: FC<Props> = async ({ id }) => {
           </Title>
         </Paper>
         <Box>
-          <Image src={imageUrl ?? ""} radius="none" alt=""></Image>
+          <Image src={imageUrl ?? ""} radius="none" alt={name || "スタジアム画像"} />
         </Box>
         <Box mb="sm">
           {capacity && (

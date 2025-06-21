@@ -8,7 +8,7 @@ export default function PasswordReset() {
       <FormContainer title="パスワードリセット">
         <Text p="md" span w="320px" size="sm">
           「パスワード再設定ページのURL」を、登録メールアドレスに送信します。
-          <br></br>
+          <br />
           登録メールアドレスを入力し【送信する】を押してください。
         </Text>
         <form>

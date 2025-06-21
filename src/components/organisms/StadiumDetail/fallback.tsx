@@ -1,24 +1,24 @@
 import { Box, Flex, Skeleton, Text, Title } from "@mantine/core";
 
-import { FC } from "react";
+import type { FC } from "react";
 
-export const FallbackStadiumDetail: FC = async () => {
+export const FallbackStadiumDetail: FC = () => {
   return (
     <Flex direction="column" gap="sm" p="sm">
       <Skeleton mt="md" visible w="50%">
-        <Title py="sm" fz="lg" order={2}></Title>
+        <Title py="sm" fz="lg" order={2} />
       </Skeleton>
       <Skeleton>
-        <Box w="100%" h="200px"></Box>
+        <Box w="100%" h="200px" />
       </Skeleton>
       <Skeleton visible>
-        <Text py="sm"></Text>
+        <Text py="sm" />
       </Skeleton>
       <Skeleton visible>
-        <Text py="sm"></Text>
+        <Text py="sm" />
       </Skeleton>
       <Skeleton visible>
-        <Text py="sm"></Text>
+        <Text py="sm" />
       </Skeleton>
     </Flex>
   );

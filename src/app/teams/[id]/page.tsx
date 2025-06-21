@@ -24,7 +24,7 @@ export default async function Page({
     <Container className="main" fluid>
       <BackPage />
       <Suspense fallback={<FallbackTeamDetail />}>
-        <TeamDetail id={id} match_ym={match_ym}></TeamDetail>
+        <TeamDetail id={id} match_ym={match_ym} />
       </Suspense>
     </Container>
   );

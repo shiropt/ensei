@@ -1,6 +1,6 @@
-import { ComponentProps, FC } from "react";
+import type { ComponentProps, FC } from "react";
 import NextImage from "next/image";
-import { Image as MantineImage, MantineRadius } from "@mantine/core";
+import { Image as MantineImage, type MantineRadius } from "@mantine/core";
 
 type Props = ComponentProps<typeof NextImage> & {
   radius?: MantineRadius;
@@ -33,7 +33,7 @@ export const Image: FC<Props> = ({
           width,
         }}
         {...props}
-      ></MantineImage>
+      />
     </div>
   );
 };

@@ -1,13 +1,15 @@
 import { Flex, Skeleton } from "@mantine/core";
+import type { FC } from "react";
+import { generateArrayWithKeys } from "@/utils/functions/array";
 
-import { FC } from "react";
-
-export const FallbackTeamList: FC = async () => {
+export const FallbackTeamList: FC = () => {
   return (
     <Flex direction="column" gap="sm">
-      {[...new Array(20)].map((_, i) => {
-        return <Skeleton h={18} visible key={i} />;
-      })}
+      {generateArrayWithKeys(
+        20,
+        (_, key) => <Skeleton h={18} visible key={key} />,
+        "team-fallback"
+      )}
     </Flex>
   );
 };

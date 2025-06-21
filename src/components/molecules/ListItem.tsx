@@ -1,9 +1,9 @@
 "use client";
-import { Teams } from "@/utils/supabase/db/actions";
+import type { Teams } from "@/utils/supabase/db/actions";
 import { List, NavLink, Paper } from "@mantine/core";
 import Link from "next/link";
 
-import { FC } from "react";
+import type { FC } from "react";
 type Props = {
   team: Teams[number];
 };

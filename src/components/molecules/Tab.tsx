@@ -1,5 +1,5 @@
 "use client";
-import { Tabs, TabsProps, Text } from "@mantine/core";
+import { Tabs, Text, type TabsProps } from "@mantine/core";
 import { useQueryState } from "nuqs";
 
 export const Tab = ({
@@ -32,7 +32,7 @@ export const Tab = ({
           <Text>J3</Text>
         </Tabs.Tab>
       </Tabs.List>
-      {children && children}
+      {children}
     </Tabs>
   );
 };
