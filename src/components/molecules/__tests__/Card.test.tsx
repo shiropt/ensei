@@ -26,6 +26,7 @@ jest.mock('../IconWithText', () => ({
 
 // Imageコンポーネントのモック
 jest.mock('@/components/atoms/Image', () => ({
+  // eslint-disable-next-line @next/next/no-img-element
   Image: ({ alt }: { alt: string }) => <img alt={alt} />
 }))
 
