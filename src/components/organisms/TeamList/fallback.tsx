@@ -2,7 +2,7 @@ import { Flex, Skeleton } from "@mantine/core";
 import type { FC } from "react";
 import { generateArrayWithKeys } from "@/utils/functions/array";
 
-export const FallbackTeamList: FC = async () => {
+export const FallbackTeamList: FC = () => {
   return (
     <Flex direction="column" gap="sm">
       {generateArrayWithKeys(

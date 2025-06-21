@@ -38,7 +38,7 @@ export const StadiumDetail: FC<Props> = async ({ id }) => {
           </Title>
         </Paper>
         <Box>
-          <Image src={imageUrl ?? ""} radius="none" alt="" />
+          <Image src={imageUrl ?? ""} radius="none" alt={name || "スタジアム画像"} />
         </Box>
         <Box mb="sm">
           {capacity && (

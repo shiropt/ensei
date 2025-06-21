@@ -6,7 +6,7 @@ export const generateArrayWithKeys = <T>(
   mapFn: (index: number, key: string) => T,
   keyPrefix: string
 ): T[] => {
-  return [...Array(count)].map((_, i) => {
+  return Array.from({ length: count }, (_, i) => {
     const key = `${keyPrefix}-${i}`;
     return mapFn(i, key);
   });

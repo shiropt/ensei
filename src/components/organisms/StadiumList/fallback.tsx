@@ -3,7 +3,7 @@ import { Grid } from "@mantine/core";
 import type { FC } from "react";
 import { generateArrayWithKeys } from "@/utils/functions/array";
 
-export const FallbackStadiumList: FC = async () => {
+export const FallbackStadiumList: FC = () => {
   return (
     <Grid>
       {generateArrayWithKeys(

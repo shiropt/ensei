@@ -2,7 +2,7 @@ import { Flex, Skeleton, Text, Title } from "@mantine/core";
 
 import type { FC } from "react";
 
-export const FallbackTeamDetail: FC = async () => {
+export const FallbackTeamDetail: FC = () => {
   return (
     <Flex direction="column" gap="sm">
       <Skeleton mt="sm" visible h="50px">
