@@ -36,11 +36,17 @@ test.describe('Stadiums Page', () => {
     const searchInput = page.locator('input[type="search"]')
     await searchInput.waitFor({ state: 'visible' })
     
+    // 初期のカード数を取得
+    const initialCards = await page.locator('[data-testid="stadium-card"]').count()
+    
     // 検索テキストを入力
     await searchInput.fill('東京')
     
-    // 検索結果を待機（デバウンス考慮）
-    await page.waitForTimeout(500)
+    // 検索結果の変化を待機（カード数の変化またはURL変更を待つ）
+    await expect(async () => {
+      const currentCards = await page.locator('[data-testid="stadium-card"]').count()
+      return currentCards !== initialCards || page.url().includes('search=東京')
+    }).toPass({ timeout: 3000 })
     
     // 検索結果が表示されることを確認
     await expect(page.locator('[data-testid="stadium-card"]')).toHaveCount({ min: 1 })

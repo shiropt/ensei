@@ -21,6 +21,7 @@
   "dependencies": {
     "@mantine/core": "^7.17.0",
     "@mantine/hooks": "^7.17.0",
+    "@prisma/client": "^6.3.0",
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.47.12",
     "@tabler/icons-react": "^3.28.1",
@@ -36,7 +37,6 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@playwright/test": "^1.53.1",
-    "@prisma/client": "^6.3.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^14.3.1",
     "@testing-library/user-event": "^14.5.2",

@@ -85,7 +85,9 @@ describe('Card', () => {
   it('should handle null name gracefully', () => {
     const props = { ...defaultProps, name: null }
     renderWithMantine(<Card {...props} />)
-    // nullの場合は何も表示されない
-    expect(screen.queryByRole('heading')).toBeInTheDocument()
+    // nameがnullの場合、h3要素は存在するが内容は空
+    const heading = screen.getByRole('heading', { level: 3 })
+    expect(heading).toBeInTheDocument()
+    expect(heading).toHaveTextContent('')
   })
 })

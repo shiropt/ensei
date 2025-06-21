@@ -12,6 +12,7 @@ test.describe('Navigation', () => {
   test('should navigate to teams page', async ({ page }) => {
     // ハンバーガーメニューを開く
     await page.click('[aria-label="Toggle navigation"]')
+    await page.waitForSelector('text=クラブ', { state: 'visible' })
     
     // チームページリンクをクリック
     await page.click('text=クラブ')
@@ -22,6 +23,7 @@ test.describe('Navigation', () => {
   test('should navigate to stadiums page', async ({ page }) => {
     // ハンバーガーメニューを開く
     await page.click('[aria-label="Toggle navigation"]')
+    await page.waitForSelector('text=スタジアム', { state: 'visible' })
     
     // スタジアムページリンクをクリック
     await page.click('text=スタジアム')
