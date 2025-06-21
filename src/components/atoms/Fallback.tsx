@@ -1,5 +1,5 @@
 import { Skeleton, Grid } from "@mantine/core";
-import { FC } from "react";
+import type { FC } from "react";
 
 interface FallbackProps {
   count?: number;

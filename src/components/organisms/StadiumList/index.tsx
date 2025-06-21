@@ -1,11 +1,11 @@
 "use client";
 import { Card } from "@/components/molecules/Card";
-import { Stadiums } from "@/utils/supabase/db/actions";
+import type { Stadiums } from "@/utils/supabase/db/actions";
 import { matchesSearchQuery, matchesCategory } from "@/utils/functions/string";
 import { Grid } from "@mantine/core";
 import { useQueryState } from "nuqs";
 
-import { FC, useMemo } from "react";
+import { useMemo, type FC } from "react";
 
 type Props = {
   stadiums: Stadiums;

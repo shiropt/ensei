@@ -1,10 +1,10 @@
 "use client";
 import { Image } from "@/components/atoms/Image";
 import { IconWithText } from "@/components/molecules/IconWithText";
-import { Stadiums } from "@/utils/supabase/db/actions";
+import type { Stadiums } from "@/utils/supabase/db/actions";
 import { Flex, Grid, Paper, Title } from "@mantine/core";
 import Link from "next/link";
-import { FC } from "react";
+import type { FC } from "react";
 
 type Props = Stadiums[number];
 

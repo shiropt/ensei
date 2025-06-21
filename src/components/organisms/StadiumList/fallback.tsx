@@ -1,7 +1,7 @@
 import { FallbackCard } from "@/components/molecules/CardFallback";
 import { Grid } from "@mantine/core";
 
-import { FC } from "react";
+import type { FC } from "react";
 
 export const FallbackStadiumList: FC = async () => {
   return (

@@ -3,7 +3,7 @@ import { MatchList } from "@/components/organisms/Matches/List";
 import { FallbackMatchList } from "@/components/organisms/Matches/List/fallback";
 import { getTeam } from "@/utils/supabase/db/actions";
 import { Paper } from "@mantine/core";
-import { FC, Suspense } from "react";
+import { Suspense, type FC } from "react";
 
 type Props = {
   id: string;

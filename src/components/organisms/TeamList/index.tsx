@@ -1,10 +1,10 @@
 "use client";
 import { ListItem } from "@/components/molecules/ListItem";
-import { Teams } from "@/utils/supabase/db/actions";
+import type { Teams } from "@/utils/supabase/db/actions";
 import { matchesCategory } from "@/utils/functions/string";
 import { Box, List } from "@mantine/core";
 import { useQueryState } from "nuqs";
-import { FC, useMemo } from "react";
+import { useMemo, type FC } from "react";
 
 type Props = {
   teams: Teams;

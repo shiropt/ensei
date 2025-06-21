@@ -1,6 +1,6 @@
 import { Image } from "@/components/atoms/Image";
 import { Flex, Grid, Paper, Skeleton } from "@mantine/core";
-import { FC } from "react";
+import type { FC } from "react";
 
 interface CardFallbackProps {
   showImage?: boolean;

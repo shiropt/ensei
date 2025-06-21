@@ -1,18 +1,18 @@
 import { Flex, Skeleton, Text } from "@mantine/core";
 
-import { FC } from "react";
+import type { FC } from "react";
 
 export const FallbackMatchList: FC = async () => {
   return (
     <Flex direction="column" gap="sm">
       <Skeleton h="86px" visible>
-        <Text></Text>
+        <Text />
       </Skeleton>
       <Skeleton h="86px" visible>
-        <Text></Text>
+        <Text />
       </Skeleton>
       <Skeleton h="86px" visible>
-        <Text></Text>
+        <Text />
       </Skeleton>
     </Flex>
   );

@@ -1,5 +1,5 @@
 "use client";
-import React, { FC } from "react";
+import type { FC } from "react";
 import { APIProvider, Map } from "@vis.gl/react-google-maps";
 
 type Props = {
@@ -15,9 +15,9 @@ export const GoogleMap: FC<Props> = ({ lat, lng }) => {
       <Map
         defaultCenter={{ lat, lng }}
         defaultZoom={14}
-        gestureHandling={"greedy"}
-        disableDefaultUI={true}
-      ></Map>
+        gestureHandling="greedy"
+        disableDefaultUI
+      />
     </APIProvider>
   );
 };

@@ -21,7 +21,7 @@ export default async function Page({
     <Box>
       <BackPage />
       <Suspense fallback={<FallbackStadiumDetail />}>
-        <StadiumDetail id={id}></StadiumDetail>
+        <StadiumDetail id={id} />
       </Suspense>
     </Box>
   );

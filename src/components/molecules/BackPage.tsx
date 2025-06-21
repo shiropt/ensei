@@ -2,7 +2,7 @@
 import { IconWithText } from "@/components/molecules/IconWithText";
 import { Button } from "@mantine/core";
 import { useRouter } from "next/navigation";
-import { FC } from "react";
+import type { FC } from "react";
 export const BackPage: FC = () => {
   const router = useRouter();
   return (

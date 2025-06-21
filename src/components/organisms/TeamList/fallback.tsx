@@ -1,6 +1,6 @@
 import { Flex, Skeleton } from "@mantine/core";
 
-import { FC } from "react";
+import type { FC } from "react";
 
 export const FallbackTeamList: FC = async () => {
   return (
