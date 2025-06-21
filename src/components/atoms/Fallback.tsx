@@ -33,7 +33,7 @@ export const Fallback: FC<FallbackProps> = ({
     return (
       <Grid>
         {[...Array(count)].map((_, i) => (
-          <div key={i}>{renderSkeleton()}</div>
+          <div key={`skeleton-card-${i}`}>{renderSkeleton()}</div>
         ))}
       </Grid>
     );
@@ -42,7 +42,7 @@ export const Fallback: FC<FallbackProps> = ({
   return (
     <>
       {[...Array(count)].map((_, i) => (
-        <div key={i}>{renderSkeleton()}</div>
+        <div key={`skeleton-${variant}-${i}`}>{renderSkeleton()}</div>
       ))}
     </>
   );

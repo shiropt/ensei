@@ -7,7 +7,7 @@ export const FallbackStadiumList: FC = async () => {
   return (
     <Grid>
       {[...new Array(6)].map((_, i) => {
-        return <FallbackCard key={i} />;
+        return <FallbackCard key={`stadium-fallback-${i}`} />;
       })}
     </Grid>
   );

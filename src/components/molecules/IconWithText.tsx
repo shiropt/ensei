@@ -1,5 +1,4 @@
-import type { FlexProps} from "@mantine/core";
-import { Flex, Text } from "@mantine/core";
+import { Flex, Text, type FlexProps } from "@mantine/core";
 import type { FC } from "react";
 import {
   IconHome,

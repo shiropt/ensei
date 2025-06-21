@@ -24,7 +24,7 @@ export const CardFallback: FC<CardFallbackProps> = ({
             <Flex direction="column" gap="xs">
               {[...Array(lines)].map((_, i) => (
                 <Skeleton 
-                  key={i} 
+                  key={`card-fallback-line-${i}`} 
                   h={i === 0 ? 24 : 16} 
                   visible 
                 />
