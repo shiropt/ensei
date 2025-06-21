@@ -21,21 +21,21 @@ const eslintConfig = [
       "react/self-closing-comp": "warn",
       "react/jsx-boolean-value": ["warn", "never"],
       "react/jsx-fragments": ["warn", "syntax"],
-      
+
       // TypeScript関連のルール強化
       "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
       "@typescript-eslint/no-explicit-any": "warn",
       "@typescript-eslint/consistent-type-imports": "warn",
-      
+
       // 一般的なコード品質ルール
       "prefer-const": "error",
       "no-var": "error",
-      "no-console": "warn",
+      "no-console": "error",
       "no-debugger": "error",
       "no-duplicate-imports": "error",
       "object-shorthand": "warn",
       "prefer-template": "warn",
-      
+
       // Next.js関連の最適化
       "@next/next/no-img-element": "error",
       "@next/next/no-html-link-for-pages": "error",
