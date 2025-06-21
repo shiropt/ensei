@@ -26,6 +26,6 @@ export interface TeamData {
 
 export interface StadiumData {
   id: number;
-  shortName: string;
+  short_name: string;
   name: string;
 }

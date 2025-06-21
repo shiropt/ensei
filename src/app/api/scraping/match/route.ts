@@ -6,18 +6,6 @@ import type { MatchScrapingData, ApiResponse } from "@/types";
 // 定数定義
 const SCRAPING_URL = "https://data.j-league.or.jp/SFMS01/search?competition_years=2025&competition_frame_ids=1&competition_frame_ids=2&competition_frame_ids=3&tv_relay_station_name=";
 
-// スクレイピング対象のフィールド定義
-// const FIELD_MAPPING: Record<string, keyof MatchScrapingData> = {
-//   年度: "date",
-//   大会: "category",
-//   節: "section",
-//   試合日: "date",
-//   "K/O時刻": "date",
-//   ホーム: "home",
-//   スコア: "score",
-//   アウェイ: "away",
-//   スタジアム: "stadium",
-// } as const;
 
 interface RawMatchData {
   year?: string;
