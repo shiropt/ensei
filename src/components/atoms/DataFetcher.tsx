@@ -4,14 +4,13 @@ import { Fallback } from "./Fallback";
 interface DataFetcherProps<T> {
   fetchData: () => Promise<T>;
   children: (data: T) => React.ReactNode;
-  fallback?: React.ReactNode;
   errorFallback?: React.ReactNode;
 }
 
-export const DataFetcher = async <T,>({ 
-  fetchData, 
-  children, 
-  errorFallback 
+export const DataFetcher = async <T,>({
+  fetchData,
+  children,
+  errorFallback,
 }: DataFetcherProps<T>) => {
   try {
     const data = await fetchData();
@@ -27,9 +26,9 @@ interface SuspenseFetcherProps<T> extends DataFetcherProps<T> {
   suspenseFallback?: React.ReactNode;
 }
 
-export const SuspenseDataFetcher = <T,>({ 
-  suspenseFallback, 
-  ...props 
+export const SuspenseDataFetcher = <T,>({
+  suspenseFallback,
+  ...props
 }: SuspenseFetcherProps<T>) => {
   return (
     <Suspense fallback={suspenseFallback || <Fallback />}>
