@@ -8,7 +8,7 @@ import {
   ColorSchemeScript,
   mantineHtmlProps,
 } from "@mantine/core";
-import { Header } from "@/components/ui/Header";
+import { Header } from "@/components/organisms/Header";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Suspense } from "react";
 
