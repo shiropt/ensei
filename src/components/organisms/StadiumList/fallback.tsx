@@ -1,4 +1,4 @@
-import { FallbackCard } from "@/components/molecules/Card.fallback";
+import { FallbackCard } from "@/components/molecules/CardFallback";
 import { Grid } from "@mantine/core";
 
 import { FC } from "react";

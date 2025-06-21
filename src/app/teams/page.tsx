@@ -1,6 +1,5 @@
 import { Tab } from "@/components/molecules/Tab";
-import { FallbackTeamList } from "@/components/organisms/TeamList/fallback";
-import { Fetcher } from "@/components/organisms/TeamList/Fetcher";
+import { TeamFetcher } from "@/components/organisms/TeamList/TeamFetcher";
 import { Box, Container, Title } from "@mantine/core";
 import { Suspense } from "react";
 
@@ -11,9 +10,9 @@ export default function Teams() {
         <Title my="md" order={2} fz="xl">
           クラブ一覧
         </Title>
-        <Suspense fallback={<FallbackTeamList />}>
+        <Suspense fallback={<div>Loading...</div>}>
           <Tab mb="md" />
-          <Fetcher />
+          <TeamFetcher />
         </Suspense>
       </Box>
     </Container>
