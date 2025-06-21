@@ -9,7 +9,10 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  /* config options here */
+  // バンドル最適化設定
+  experimental: {
+    optimizePackageImports: ['@mantine/core', '@tabler/icons-react'],
+  },
   async redirects() {
     return [
       // Basic redirect
