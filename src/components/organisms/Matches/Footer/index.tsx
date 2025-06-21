@@ -1,8 +1,8 @@
 import { IconWithText } from "@/components/molecules/IconWithText";
-import { Box, Flex, NavLink } from "@mantine/core";
-import { FC } from "react";
-import Link from "next/link";
 import { formatJstTime } from "@/utils/functions/date";
+import { Box, Flex, NavLink } from "@mantine/core";
+import Link from "next/link";
+import type { FC } from "react";
 
 type Props = {
   teamId?: number;

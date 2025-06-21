@@ -9,11 +9,11 @@ import {
   NavLink,
   Title,
 } from "@mantine/core";
-import classes from "./header.module.css";
-import { useQueryState } from "nuqs";
-import { useDebouncedCallback } from "use-debounce";
-import { useEffect, useState } from "react";
 import { useDisclosure } from "@mantine/hooks";
+import { useQueryState } from "nuqs";
+import { useEffect, useState } from "react";
+import { useDebouncedCallback } from "use-debounce";
+import classes from "./header.module.css";
 export const Header = () => {
   const [searchQuery, setSearchQuery] = useQueryState("search");
   const [localInput, setLocalInput] = useState(searchQuery ?? ""); // 入力欄のローカル状態
@@ -62,7 +62,7 @@ export const Header = () => {
               style={{ display: searchQuery ? undefined : "none" }}
             />
           }
-        ></Input>
+         />
         <Burger
           opened={opened}
           onClick={toggle}
