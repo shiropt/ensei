@@ -1,4 +1,4 @@
-import { ComponentProps, FC } from "react";
+import { ComponentProps, FC, memo } from "react";
 import NextImage from "next/image";
 import { Image as MantineImage, MantineRadius } from "@mantine/core";
 
@@ -6,7 +6,7 @@ type Props = ComponentProps<typeof NextImage> & {
   radius?: MantineRadius;
 };
 
-export const Image: FC<Props> = ({
+export const Image: FC<Props> = memo(({
   width = "100%",
   height = "200px",
   radius = "md",
@@ -29,6 +29,7 @@ export const Image: FC<Props> = ({
         blurDataURL="/images/no_image.jpg"
         sizes="100vw"
         fill
+        loading="lazy"
         style={{
           width,
         }}
@@ -36,4 +37,6 @@ export const Image: FC<Props> = ({
       ></MantineImage>
     </div>
   );
-};
+});
+
+Image.displayName = "Image";

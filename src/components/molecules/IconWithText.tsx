@@ -1,5 +1,5 @@
 import { Flex, FlexProps, Text } from "@mantine/core";
-import { FC } from "react";
+import { FC, memo } from "react";
 import {
   IconHome,
   IconMapPin,
@@ -44,7 +44,7 @@ const getIcon = (icon: IconType) => {
   }
 };
 
-export const IconWithText: FC<Props> = ({
+export const IconWithText: FC<Props> = memo(({
   text,
   icon,
   rightIcon,
@@ -66,4 +66,6 @@ export const IconWithText: FC<Props> = ({
       )}
     </Flex>
   );
-};
+});
+
+IconWithText.displayName = "IconWithText";

@@ -11,7 +11,7 @@ import {
 import classes from "./header.module.css";
 import { useQueryState } from "nuqs";
 import { useDebouncedCallback } from "use-debounce";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDisclosure } from "@mantine/hooks";
 import { Burger } from "@mantine/core";
 export const Header = () => {
@@ -27,16 +27,16 @@ export const Header = () => {
     }
   }, 300);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setLocalInput(value);
     debouncedUpdateQuery(value);
-  };
+  }, [debouncedUpdateQuery]);
 
-  const handleClear = () => {
+  const handleClear = useCallback(() => {
     setSearchQuery(null);
     setLocalInput("");
-  };
+  }, [setSearchQuery]);
 
   useEffect(() => setLocalInput(searchQuery ?? ""), [searchQuery]);
 

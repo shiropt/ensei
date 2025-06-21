@@ -1,6 +1,7 @@
 "use client";
 import { Tabs, TabsProps, Text } from "@mantine/core";
 import { useQueryState } from "nuqs";
+import { useCallback } from "react";
 
 export const Tab = ({
   children,
@@ -8,9 +9,9 @@ export const Tab = ({
 }: { children?: React.ReactNode } & TabsProps) => {
   const [category, setCategory] = useQueryState("category");
 
-  const handleCategoryChange = (value: string | null) => {
+  const handleCategoryChange = useCallback((value: string | null) => {
     setCategory(value);
-  };
+  }, [setCategory]);
 
   return (
     <Tabs
