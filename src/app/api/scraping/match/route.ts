@@ -1,41 +1,44 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { NextResponse } from "next/server";
 import * as cheerio from "cheerio";
-import fs from "fs";
-import path from "path";
+import { createClient } from "@/utils/supabase/server";
+import type { MatchScrapingData, ApiResponse } from "@/types";
 
-const optimizedKey = {
-  年度: "year",
-  大会: "category",
-  節: "section",
-  試合日: "date",
-  "K/O時刻": "kickoffTime",
-  ホーム: "home",
-  スコア: "score",
-  アウェイ: "away",
-  スタジアム: "stadium",
-};
+// 定数定義
+const SCRAPING_URL = "https://data.j-league.or.jp/SFMS01/search?competition_years=2025&competition_frame_ids=1&competition_frame_ids=2&competition_frame_ids=3&tv_relay_station_name=";
 
-const optimizeDate = (item: Record<string, unknown>) => {
-  if (typeof item.year !== "string") {
-    throw new Error("Invalid year format");
+// スクレイピング対象のフィールド定義
+// const FIELD_MAPPING: Record<string, keyof MatchScrapingData> = {
+//   年度: "date",
+//   大会: "category",
+//   節: "section",
+//   試合日: "date",
+//   "K/O時刻": "date",
+//   ホーム: "home",
+//   スコア: "score",
+//   アウェイ: "away",
+//   スタジアム: "stadium",
+// } as const;
+
+interface RawMatchData {
+  year?: string;
+  date?: string;
+  kickoffTime?: string;
+  category?: string;
+  section?: string;
+  home?: string;
+  away?: string;
+  stadium?: string;
+}
+
+// 日付の最適化関数
+function optimizeDate(item: RawMatchData): string | null {
+  if (!item.year || !item.date || item.date.includes("未定")) {
+    return null;
   }
 
-  if (
-    typeof item.date !== "string" ||
-    !item.date.trim() ||
-    item.date.includes("未定")
-  ) {
-    return null; // 日付が未定なら null を返す
-  }
-
-  const kickoffTime =
-    typeof item.kickoffTime === "string" &&
-    item.kickoffTime.trim() &&
-    !item.kickoffTime.includes("未定")
-      ? item.kickoffTime
-      : "00:00";
+  const kickoffTime = item.kickoffTime && !item.kickoffTime.includes("未定") 
+    ? item.kickoffTime 
+    : "00:00";
 
   // 日本語の曜日や記号を削除し、スラッシュをハイフンに変換
   const cleanedDate = item.date
@@ -44,166 +47,163 @@ const optimizeDate = (item: Record<string, unknown>) => {
     .trim();
 
   if (!/^\d{1,2}-\d{1,2}$/.test(cleanedDate)) {
-    return null; // 無効な日付なら null を返す
+    return null;
   }
 
-  // YYYY-MM-DD 形式を作成
-  const dateString = `${item.year.padStart(4, "0")}-${cleanedDate.padStart(
-    5,
-    "0"
-  )}`;
-
-  // hh:mm:ss 形式に変換
-  const timeString = kickoffTime.includes(":")
-    ? `${kickoffTime}:00`
-    : "00:00:00";
-
-  // `+09:00` を追加して JST (日本時間) としてパース
-  const date = new Date(`${dateString}T${timeString}+09:00`);
-
-  if (isNaN(date.getTime())) {
-    return null; // 無効な Date オブジェクトなら null を返す
+  const dateString = `${item.year.padStart(4, "0")}-${cleanedDate.padStart(5, "0")}`;
+  const timeString = kickoffTime.includes(":") ? `${kickoffTime}:00` : "00:00:00";
+  
+  try {
+    const date = new Date(`${dateString}T${timeString}+09:00`);
+    return isNaN(date.getTime()) ? null : date.toISOString();
+  } catch {
+    return null;
   }
+}
 
-  // UTC に変換して ISO 8601 形式で返す
-  return date.toISOString();
-};
-
-const writeToJson = (json: object[]) => {
-  const optimizedKeys = json.map((data) =>
-    Object.fromEntries(
-      Object.entries(data)
-        //   @ts-ignore
-        .filter(([key]) => optimizedKey[key])
-        //   @ts-ignore
-        .map(([key, value]) => [optimizedKey[key], value])
-    )
+// セクション番号の正規化
+function normalizeSection(sectionText: string): number | null {
+  const normalizedText = sectionText.replace(/[０-９]/g, (s) =>
+    String.fromCharCode(s.charCodeAt(0) - 0xfee0)
   );
-  const optimized = optimizedKeys.map((item) => {
-    const text = item.section ?? "";
-    const normalizedText = text.replace(/[０-９]/g, (s: string) =>
-      String.fromCharCode(s.charCodeAt(0) - 0xfee0)
-    );
-    const match = normalizedText.match(/\d+/);
-    const sectionAsNumber = normalizedText.match(/\d+/)
-      ? Number(match[0])
-      : null;
-    const date = optimizeDate(item);
+  const match = normalizedText.match(/\d+/);
+  return match ? Number(match[0]) : null;
+}
 
-    return {
-      date,
-      category: item.category,
-      section: sectionAsNumber,
-      home: item.home,
-      away: item.away,
-      stadium: item.stadium,
-    };
+// スクレイピングデータの変換
+function transformScrapingData(headers: string[], rowData: Record<string, string>): MatchScrapingData | null {
+  const rawData: RawMatchData = {};
+  
+  // ヘッダーに基づいてデータをマッピング
+  headers.forEach((header) => {
+    if (header === "年度") rawData.year = rowData[header];
+    else if (header === "試合日") rawData.date = rowData[header];
+    else if (header === "K/O時刻") rawData.kickoffTime = rowData[header];
+    else if (header === "大会") rawData.category = rowData[header];
+    else if (header === "節") rawData.section = rowData[header];
+    else if (header === "ホーム") rawData.home = rowData[header];
+    else if (header === "アウェイ") rawData.away = rowData[header];
+    else if (header === "スタジアム") rawData.stadium = rowData[header];
   });
-  const outputDir = path.join(process.cwd(), "data/matches");
-  const outputPath = path.join(outputDir, "matches.json");
-  if (!fs.existsSync(outputDir)) {
-    fs.mkdirSync(outputDir, { recursive: true });
+
+  const date = optimizeDate(rawData);
+  const section = rawData.section ? normalizeSection(rawData.section) : null;
+
+  if (!rawData.category || !rawData.home || !rawData.away || !rawData.stadium) {
+    return null;
   }
-  fs.writeFileSync(outputPath, JSON.stringify(optimized, null, 2), "utf-8");
-};
 
-const mappingId = () => {
-  const matchesPath = path.resolve("data/matches", "matches.json");
-  const teamsPath = path.resolve("data/matches", "teams.json");
-  const stadiumsPath = path.join("data/matches", "stadiums.json");
+  return {
+    date,
+    category: rawData.category,
+    section,
+    home: rawData.home,
+    away: rawData.away,
+    stadium: rawData.stadium,
+  };
+}
 
-  const matches = JSON.parse(fs.readFileSync(matchesPath, "utf-8"));
-  const teams = JSON.parse(fs.readFileSync(teamsPath, "utf-8"));
-  const stadiums = JSON.parse(fs.readFileSync(stadiumsPath, "utf-8"));
+export async function GET(): Promise<NextResponse<ApiResponse<{ count: number }>>> {
+  try {
+    const supabase = await createClient();
 
-  const teamMap = Object.fromEntries(
-    teams.map((team: Record<string, unknown>) => [team.short_name, team.id])
-  );
-  const stadiumMap = Object.fromEntries(
-    stadiums.map((stadium: Record<string, unknown>) => [
-      stadium.shortName,
-      stadium.id,
-    ])
-  );
+    // 1. データのスクレイピング
+    const response = await fetch(SCRAPING_URL);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data: ${response.statusText}`);
+    }
 
-  const mappedMatches = matches.map((match: Record<string, any>) => ({
-    ...match,
-    home_team_id: teamMap[match.home] || null,
-    away_team_id: teamMap[match.away] || null,
-    stadium_id: stadiumMap[match.stadium] || null,
-  }));
+    const body = await response.text();
+    const $ = cheerio.load(body);
+    
+    const headers = $("thead tr th")
+      .map((_, th) => $(th).text().trim())
+      .get();
 
-  // 変換結果を新しい JSON ファイルに保存
-  const outputFilePath = path.join("data/matches", "optimized_matches.json");
-  fs.writeFileSync(
-    outputFilePath,
-    JSON.stringify(mappedMatches, null, 2),
-    "utf-8"
-  );
+    const matches: MatchScrapingData[] = [];
+    
+    $("tbody tr").each((_, tr) => {
+      const rowData: Record<string, string> = {};
+      $(tr).find("td").each((index, td) => {
+        rowData[headers[index]] = $(td).text().trim();
+      });
+      
+      const matchData = transformScrapingData(headers, rowData);
+      if (matchData) {
+        matches.push(matchData);
+      }
+    });
 
-  console.log(`データを ${outputFilePath} に保存しました！`);
-};
+    // 2. チームとスタジアムのマッピング
+    const { data: teams } = await supabase
+      .from("teams")
+      .select("id, short_name");
+    
+    const { data: stadiums } = await supabase
+      .from("stadiums")
+      .select("id, shortName");
 
-const generateSQL = () => {
-  const jsonFilePath = path.resolve("data/matches", "optimized_matches.json"); // 事前に保存した JSON ファイル
-  const jsonData = JSON.parse(fs.readFileSync(jsonFilePath, "utf-8"));
-  const sqlStatements = jsonData
-    .map((match: Record<string, any>) => {
-      const {
-        date,
-        category,
-        section,
-        home_team_id,
-        away_team_id,
-        stadium_id,
-      } = match;
-      return `('${date}', ${home_team_id}, ${away_team_id}, ${stadium_id}, ${section}, '${category}')`;
-    })
-    .filter(Boolean);
+    if (!teams || !stadiums) {
+      throw new Error("Failed to fetch teams or stadiums data");
+    }
 
-  // // SQL クエリのフォーマット
-  const sql =
-    `INSERT INTO matches (date, home_team_id, away_team_id, stadium_id, section, category) VALUES\n` +
-    sqlStatements.join(",\n") +
-    ";";
+    const teamMap = new Map(teams.map(team => [team.short_name, team.id]));
+    const stadiumMap = new Map(stadiums.map(stadium => [stadium.shortName, stadium.id]));
 
-  // // SQL ファイルに書き出し
-  const outputDir = path.join(process.cwd(), "data/matches");
-  const outputPath = path.join(outputDir, "insert_matches.sql");
-  if (!fs.existsSync(outputDir)) {
-    fs.mkdirSync(outputDir, { recursive: true });
+    // 3. IDをマッピング
+    const matchesWithIds = matches.map(match => ({
+      ...match,
+      home_team_id: teamMap.get(match.home) || null,
+      away_team_id: teamMap.get(match.away) || null,
+      stadium_id: stadiumMap.get(match.stadium) || null,
+    }));
+
+    // 4. データベースに保存（upsert）
+    const insertData = matchesWithIds
+      .filter(match => match.date && match.home_team_id && match.away_team_id)
+      .map(match => ({
+        date: match.date,
+        home_team_id: match.home_team_id!,
+        away_team_id: match.away_team_id!,
+        stadium_id: match.stadium_id,
+        section: match.section,
+        category: match.category,
+      }));
+
+    // バッチ処理で挿入
+    const batchSize = 100;
+    let totalInserted = 0;
+
+    for (let i = 0; i < insertData.length; i += batchSize) {
+      const batch = insertData.slice(i, i + batchSize);
+      const { data, error } = await supabase
+        .from("matches")
+        .upsert(batch, {
+          onConflict: "date,home_team_id,away_team_id",
+          ignoreDuplicates: false,
+        })
+        .select();
+
+      if (error) {
+        console.error(`Batch ${i / batchSize + 1} failed:`, error);
+      } else if (data) {
+        totalInserted += data.length;
+      }
+    }
+
+    return NextResponse.json({
+      data: { count: totalInserted },
+      message: `Successfully imported ${totalInserted} matches`,
+    });
+
+  } catch (error) {
+    console.error("Match scraping error:", error);
+    return NextResponse.json(
+      {
+        error: error instanceof Error ? error.message : "Unknown error occurred",
+        message: "Failed to scrape and import matches",
+      },
+      { status: 500 }
+    );
   }
-  fs.writeFileSync(outputPath, sql, "utf-8");
-
-  console.log("✅ SQL ファイルを生成しました: insert_matches.sql");
-};
-
-// 2025年のリーグ戦試合日程
-const url =
-  "https://data.j-league.or.jp/SFMS01/search?competition_years=2025&competition_frame_ids=1&competition_frame_ids=2&competition_frame_ids=3&tv_relay_station_name=";
-export async function GET() {
-  const response = await fetch(url);
-  const body = await response.text();
-  const $ = cheerio.load(body);
-  const headers = $("thead tr th")
-    .map((_, th) => $(th).text().trim())
-    .get();
-
-  // テーブルデータを取得
-  const tableData = $("tbody tr")
-    .map((_, tr) => {
-      const row: Record<string, any> = {};
-      $(tr)
-        .find("td")
-        .each((index, td) => {
-          row[headers[index]] = $(td).text().trim();
-        });
-      return row;
-    })
-    .get();
-  writeToJson(tableData);
-  mappingId();
-  generateSQL();
-
-  return NextResponse.json({ message: "SQL generation succeeded" });
 }
