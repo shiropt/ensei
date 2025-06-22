@@ -8,7 +8,11 @@ export const FallbackStadiumList: FC = () => {
     <Grid>
       {generateArrayWithKeys(
         6,
-        (_, key) => <FallbackCard key={key} />,
+        (_, key) => (
+          <Grid.Col key={key} miw="280px" span={{ xs: 12, sm: 6, md: 4, lg: 3, xl: 2 }}>
+            <FallbackCard />
+          </Grid.Col>
+        ),
         "stadium-fallback"
       )}
     </Grid>
