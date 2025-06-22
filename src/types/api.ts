@@ -13,6 +13,8 @@ export interface MatchScrapingData {
   home: string;
   away: string;
   stadium: string;
+  score: string | null;
+  attendance: number | null;
   home_team_id?: number;
   away_team_id?: number;
   stadium_id?: number;

@@ -42,6 +42,7 @@ export interface MatchListItem {
   stadium: string | null | undefined;
   date: Date | null;
   stadiumId: number | null;
+  score: string | null;
 }
 
 export interface TagItem {
@@ -227,6 +228,9 @@ export const getMatchesByTeam = async (teamId: number, gte: string): Promise<Mat
         teams_matches_away_team_idToteams: true,
         stadiums: true,
       },
+      orderBy: {
+        date: "asc",
+      },
     });
     return matches.map((match) => {
       return {
@@ -237,6 +241,7 @@ export const getMatchesByTeam = async (teamId: number, gte: string): Promise<Mat
         stadium: match.stadiums?.shortName,
         date: match.date,
         stadiumId: match.stadium_id,
+        score: match.score,
       };
     });
   } catch {
