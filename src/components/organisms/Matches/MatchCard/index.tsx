@@ -28,7 +28,7 @@ export const MatchCard: FC<Props> = ({ match }) => {
         <Flex px="lg" py="sm" justify="space-between">
           <Text flex={1}>{match.homeTeam}</Text>
           <Text ta="center" flex={1}>
-            未定
+            {match.score || "未定"}
           </Text>
           <Text ta="right" flex={1}>
             {match.awayTeam}
@@ -58,7 +58,7 @@ export const MatchCard: FC<Props> = ({ match }) => {
       <Flex px="lg" py="sm" justify="space-between">
         <Text flex={1}>{match.homeTeam}</Text>
         <Text ta="center" flex={1}>
-          {hour}時{minute}分
+          {match.score || `${hour}時${minute}分`}
         </Text>
         <Text ta="right" flex={1}>
           {match.awayTeam}
