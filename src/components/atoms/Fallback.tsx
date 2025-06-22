@@ -6,18 +6,23 @@ interface FallbackProps {
   count?: number;
   height?: number;
   variant?: "card" | "list" | "detail";
+  minWidth?: string;
 }
 
 export const Fallback: FC<FallbackProps> = ({ 
   count = 6, 
   height = 200,
-  variant = "card" 
+  variant = "card",
+  minWidth
 }) => {
   const renderSkeleton = () => {
     switch (variant) {
       case "card":
         return (
-          <Grid.Col miw="280px" span={{ xs: 12, sm: 6, md: 4, lg: 3, xl: 2 }}>
+          <Grid.Col 
+            {...(minWidth && { miw: minWidth })} 
+            span={{ base: 12, sm: 6, md: 4, lg: 3, xl: 2 }}
+          >
             <Skeleton height={height} radius="sm" />
           </Grid.Col>
         );
