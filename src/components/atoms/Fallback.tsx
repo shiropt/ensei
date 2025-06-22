@@ -17,7 +17,7 @@ export const Fallback: FC<FallbackProps> = ({
     switch (variant) {
       case "card":
         return (
-          <Grid.Col miw="280px" span={{ xs: 12, sm: 6, md: 4, lg: 3, xl: 2 }}>
+          <Grid.Col miw="280px" span={{ base: 12, sm: 6, md: 4, lg: 3, xl: 2 }}>
             <Skeleton height={height} radius="sm" />
           </Grid.Col>
         );

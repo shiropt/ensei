@@ -1,6 +1,6 @@
 import { Tab } from "@/components/molecules/Tab";
 import { TeamFetcher } from "@/components/organisms/TeamList/TeamFetcher";
-import { Box, Container, Title } from "@mantine/core";
+import { Box, Container, Title, Skeleton, Flex } from "@mantine/core";
 import { Suspense } from "react";
 
 export default function Teams() {
@@ -10,7 +10,18 @@ export default function Teams() {
         <Title my="md" order={2} fz="xl">
           クラブ一覧
         </Title>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense 
+          fallback={
+            <Box>
+              <Skeleton height={40} mb="md" />
+              <Flex direction="column" gap="sm">
+                {Array.from({ length: 10 }).map((_, i) => (
+                  <Skeleton key={`team-skeleton-${i}`} height={18} />
+                ))}
+              </Flex>
+            </Box>
+          }
+        >
           <Tab mb="md" />
           <TeamFetcher />
         </Suspense>

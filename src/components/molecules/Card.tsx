@@ -18,7 +18,7 @@ export const Card: FC<Props> = ({
   imageUrl,
 }) => {
   return (
-    <Grid.Col miw="280px" span={{ xs: 12, sm: 6, md: 4, lg: 3, xl: 2 }}>
+    <Grid.Col span={{ base: 12, sm: 6, md: 4, lg: 3, xl: 2 }}>
       {/* TODO: FOUC 対応 */}
       <Paper bg="#242424" radius="sm" p="sm">
         <Flex direction="column" gap="xs">
