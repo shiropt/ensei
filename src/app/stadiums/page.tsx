@@ -9,8 +9,8 @@ export default async function Home() {
       <Title my="md" order={2} fz="xl">
         スタジアム一覧
       </Title>
+      <Tab mb="md" />
       <Suspense fallback={<div>Loading...</div>}>
-        <Tab mb="md" />
         <StadiumFetcher category="all" />
       </Suspense>
     </Box>
