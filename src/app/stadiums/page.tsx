@@ -13,7 +13,7 @@ export default async function Home() {
         fallback={
           <Box>
             <Skeleton height={40} mb="md" />
-            <Skeleton height={300} />
+            <Skeleton height={300} radius="sm" />
           </Box>
         }
       >
