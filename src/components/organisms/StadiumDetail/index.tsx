@@ -31,16 +31,21 @@ export const StadiumDetail: FC<Props> = async ({ id }) => {
 
   return (
     <Box>
-      <Flex direction="column" gap="sm">
-        <Paper withBorder p="sm" mb="md">
-          <Title fz="lg" order={2}>
+      <Flex direction="column" gap={{ base: "xs", md: "sm" }}>
+        <Paper withBorder p={{ base: "sm", md: "md" }} mb={{ base: "sm", md: "md" }}>
+          <Title fz={{ base: "md", md: "lg" }} order={2}>
             {name}
           </Title>
         </Paper>
         <Box>
-          <Image src={imageUrl ?? ""} radius="none" alt={name || "スタジアム画像"} />
+          <Image 
+            src={imageUrl ?? ""} 
+            radius="none" 
+            alt={name || "スタジアム画像"} 
+            height={{ base: "160px", sm: "200px", md: "240px" }}
+          />
         </Box>
-        <Box mb="sm">
+        <Box mb={{ base: "sm", md: "md" }} px={{ base: "xs", md: "0" }}>
           {capacity && (
             <IconWithText
               text={`${Number(capacity).toLocaleString()}人`}
@@ -49,11 +54,11 @@ export const StadiumDetail: FC<Props> = async ({ id }) => {
           )}
           <IconWithText text={homeTeams} icon="home" />
           <IconWithText text={address} icon="mapPin" />
-          <Text ml="md" fz="sm">
+          <Text ml={{ base: "sm", md: "md" }} fz={{ base: "xs", md: "sm" }} mt="xs">
             {access}
           </Text>
         </Box>
-        <Box w="100%" h="240px">
+        <Box w="100%" h={{ base: "200px", sm: "240px", md: "300px" }}>
           <GoogleMap lat={lat ?? 0} lng={lng ?? 0} />
         </Box>
       </Flex>
