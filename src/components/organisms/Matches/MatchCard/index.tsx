@@ -11,9 +11,9 @@ type Props = {
 export const MatchCard: FC<Props> = ({ match }) => {
   if (!match.date) {
     return (
-      <Paper mb="sm" withBorder key={match.id}>
-        <Flex justify="space-between" align="center" px="sm">
-          <Text>
+      <Paper mb={{ base: "xs", md: "sm" }} withBorder key={match.id} p={{ base: "xs", md: "sm" }}>
+        <Flex justify="space-between" align="center" px={{ base: "xs", md: "sm" }}>
+          <Text fz={{ base: "xs", md: "sm" }}>
             {`第${match.section}節`} 日程未定
           </Text>
           <Box>
@@ -21,16 +21,17 @@ export const MatchCard: FC<Props> = ({ match }) => {
               component={Link}
               label={match.stadium}
               href={`/stadiums/${match.stadiumId}`}
+              fz={{ base: "xs", md: "sm" }}
             />
           </Box>
         </Flex>
         <Divider />
-        <Flex px="lg" py="sm" justify="space-between">
-          <Text flex={1}>{match.homeTeam}</Text>
-          <Text ta="center" flex={1}>
+        <Flex px={{ base: "sm", md: "lg" }} py={{ base: "xs", md: "sm" }} justify="space-between">
+          <Text flex={1} fz={{ base: "xs", md: "sm" }}>{match.homeTeam}</Text>
+          <Text ta="center" flex={1} fz={{ base: "xs", md: "sm" }}>
             {match.score || "未定"}
           </Text>
-          <Text ta="right" flex={1}>
+          <Text ta="right" flex={1} fz={{ base: "xs", md: "sm" }}>
             {match.awayTeam}
           </Text>
         </Flex>
@@ -41,9 +42,9 @@ export const MatchCard: FC<Props> = ({ match }) => {
   const { month, day, hour, minute } = formatJstTime(match.date);
 
   return (
-    <Paper mb="sm" withBorder key={match.id}>
-      <Flex justify="space-between" align="center" px="sm">
-        <Text>
+    <Paper mb={{ base: "xs", md: "sm" }} withBorder key={match.id} p={{ base: "xs", md: "sm" }}>
+      <Flex justify="space-between" align="center" px={{ base: "xs", md: "sm" }}>
+        <Text fz={{ base: "xs", md: "sm" }}>
           {`第${match.section}節`} {month}月{day}日
         </Text>
         <Box>
@@ -51,16 +52,17 @@ export const MatchCard: FC<Props> = ({ match }) => {
             component={Link}
             label={match.stadium}
             href={`/stadiums/${match.stadiumId}`}
+            fz={{ base: "xs", md: "sm" }}
           />
         </Box>
       </Flex>
       <Divider />
-      <Flex px="lg" py="sm" justify="space-between">
-        <Text flex={1}>{match.homeTeam}</Text>
-        <Text ta="center" flex={1}>
+      <Flex px={{ base: "sm", md: "lg" }} py={{ base: "xs", md: "sm" }} justify="space-between">
+        <Text flex={1} fz={{ base: "xs", md: "sm" }}>{match.homeTeam}</Text>
+        <Text ta="center" flex={1} fz={{ base: "xs", md: "sm" }}>
           {match.score || `${hour}時${minute}分`}
         </Text>
-        <Text ta="right" flex={1}>
+        <Text ta="right" flex={1} fz={{ base: "xs", md: "sm" }}>
           {match.awayTeam}
         </Text>
       </Flex>

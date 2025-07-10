@@ -16,7 +16,7 @@ export const Footer: FC<Props> = ({ teamId, match_ym }) => {
   const monthAsNumber = parseInt(month ?? "", 10);
 
   return (
-    <Flex justify="space-between">
+    <Flex justify="space-between" p={{ base: "xs", md: "sm" }}>
       <Box>
         {monthAsNumber > 1 && (
           <NavLink
@@ -25,6 +25,9 @@ export const Footer: FC<Props> = ({ teamId, match_ym }) => {
             }`}
             component={Link}
             leftSection={<IconWithText text="前へ" icon="chevronLeft" />}
+            p={{ base: "xs", md: "sm" }}
+            fz={{ base: "xs", md: "sm" }}
+            style={{ minHeight: "44px" }}
           />
         )}
       </Box>
@@ -39,6 +42,9 @@ export const Footer: FC<Props> = ({ teamId, match_ym }) => {
             leftSection={
               <IconWithText text="次へ" icon="chevronRight" rightIcon />
             }
+            p={{ base: "xs", md: "sm" }}
+            fz={{ base: "xs", md: "sm" }}
+            style={{ minHeight: "44px" }}
           />
         )}
       </Box>

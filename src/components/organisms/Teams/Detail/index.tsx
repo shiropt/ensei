@@ -2,7 +2,7 @@ import { Footer } from "@/components/organisms/Matches/Footer";
 import { MatchList } from "@/components/organisms/Matches/List";
 import { FallbackMatchList } from "@/components/organisms/Matches/List/fallback";
 import { getTeam } from "@/utils/supabase/db/actions";
-import { Paper } from "@mantine/core";
+import { Paper, Title } from "@mantine/core";
 import { Suspense, type FC } from "react";
 
 type Props = {
@@ -15,8 +15,10 @@ export const TeamDetail: FC<Props> = async ({ id, match_ym }) => {
 
   return (
     <div>
-      <Paper mb="md" withBorder p="sm">
-        {team?.name}
+      <Paper mb={{ base: "sm", md: "md" }} withBorder p={{ base: "sm", md: "md" }}>
+        <Title fz={{ base: "md", md: "lg" }} order={2}>
+          {team?.name}
+        </Title>
       </Paper>
       <Suspense fallback={<FallbackMatchList />}>
         <MatchList id={id} match_ym={match_ym} />
