@@ -42,7 +42,7 @@ export const Header = () => {
 
   return (
     <header className={classes.header}>
-      <Flex h="100%" align="center" justify="space-between">
+      <Flex h="100%" align="center" justify="space-between" gap="sm">
         <Title className={classes.title} order={1} size="lg">
           ensei
         </Title>
@@ -67,6 +67,7 @@ export const Header = () => {
           opened={opened}
           onClick={toggle}
           aria-label="Toggle navigation"
+          size="sm"
         />
         <Drawer
           position="right"

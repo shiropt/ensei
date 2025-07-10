@@ -19,16 +19,16 @@ export const Tab = ({
       onChange={handleCategoryChange}
     >
       <Tabs.List>
-        <Tabs.Tab px="xl" fz="md" fw="bold" value="all">
+        <Tabs.Tab px={{ base: "md", sm: "lg", md: "xl" }} fz="md" fw="bold" value="all">
           <Text>全て</Text>
         </Tabs.Tab>
-        <Tabs.Tab px="xl" fz="md" fw="bold" value="j1">
+        <Tabs.Tab px={{ base: "md", sm: "lg", md: "xl" }} fz="md" fw="bold" value="j1">
           <Text>J1</Text>
         </Tabs.Tab>
-        <Tabs.Tab px="xl" fz="md" fw="bold" value="j2">
+        <Tabs.Tab px={{ base: "md", sm: "lg", md: "xl" }} fz="md" fw="bold" value="j2">
           <Text>J2</Text>
         </Tabs.Tab>
-        <Tabs.Tab px="xl" fz="md" fw="bold" value="j3">
+        <Tabs.Tab px={{ base: "md", sm: "lg", md: "xl" }} fz="md" fw="bold" value="j3">
           <Text>J3</Text>
         </Tabs.Tab>
       </Tabs.List>
