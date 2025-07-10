@@ -12,8 +12,6 @@ const StadiumData = async ({ category = "all" }: StadiumFetcherProps) => {
     const stadiums = await getStadiums({ category });
     return <StadiumList stadiums={stadiums} />;
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error("Failed to fetch stadiums:", error);
     return <div>スタジアムデータの取得に失敗しました</div>;
   }
 };
