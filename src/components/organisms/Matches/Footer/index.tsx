@@ -34,7 +34,6 @@ export const Footer: FC<Props> = ({ teamId, match_ym }) => {
       <Box>
         {monthAsNumber < 12 && (
           <NavLink
-            pr="0"
             href={`/teams/${teamId}?match_ym=${yearAsNumber}-${
               monthAsNumber + 1
             }`}
