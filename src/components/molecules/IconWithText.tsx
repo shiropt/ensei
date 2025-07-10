@@ -48,11 +48,12 @@ export const IconWithText: FC<Props> = ({
   text,
   icon,
   rightIcon,
+  gap = 4,
   ...props
 }) => {
   if (!text) return null;
   return (
-    <Flex {...props} align="baseline" gap={4}>
+    <Flex {...props} align="baseline" gap={gap}>
       {rightIcon ? (
         <>
           <Text fz="sm">{text}</Text>

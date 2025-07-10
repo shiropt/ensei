@@ -20,18 +20,19 @@ export const Card: FC<Props> = ({
   return (
     <Grid.Col span={{ base: 12, sm: 6, md: 4, lg: 3, xl: 2 }}>
       {/* TODO: FOUC 対応 */}
-      <Paper bg="#242424" radius="sm" p="sm">
-        <Flex direction="column" gap="xs">
+      <Paper bg="#242424" radius="sm" p={{ base: "sm", md: "md" }}>
+        <Flex direction="column" gap={{ base: "xs", md: "sm" }}>
           <Image alt="スタジアム画像" src={imageUrl ?? ""} />
-          <Flex flex={1} justify="left" direction="column">
+          <Flex flex={1} justify="left" direction="column" gap="xs">
             <Flex align="center" justify="space-between">
               <Link
                 href={{
                   pathname: `/stadiums/${id}`,
                   // query: { from: `${pathname}?${searchParams}` },
                 }}
+                style={{ minHeight: "44px", display: "flex", alignItems: "center" }}
               >
-                <Title fz="md" order={3}>
+                <Title fz={{ base: "sm", md: "md" }} order={3}>
                   {name}
                 </Title>
               </Link>
@@ -41,10 +42,11 @@ export const Card: FC<Props> = ({
               <IconWithText
                 text={`${Number(capacity).toLocaleString()}人`}
                 icon="users"
+                gap={{ base: 2, md: 4 }}
               />
             )}
-            <IconWithText text={homeTeams} icon="home" />
-            <IconWithText text={access} icon="mapPin" />
+            <IconWithText text={homeTeams} icon="home" gap={{ base: 2, md: 4 }} />
+            <IconWithText text={access} icon="mapPin" gap={{ base: 2, md: 4 }} />
           </Flex>
         </Flex>
       </Paper>
