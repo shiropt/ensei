@@ -60,7 +60,7 @@ export default function Login() {
         {errorMessage && <Text c="red">{errorMessage}</Text>}
         <Flex mt="md" align="center" gap="sm" direction="column" p="md">
           <Text>
-            <Link href="password_reset">パスワードをお忘れの場合</Link>
+            <Link href="/password_reset">パスワードをお忘れの場合</Link>
           </Text>
           <Text>
             <Link href="/signup">新規登録はこちら</Link>

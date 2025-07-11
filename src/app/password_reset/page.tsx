@@ -29,7 +29,7 @@ export default function PasswordReset() {
         </form>
         <Flex mt="md" align="center" gap="sm" direction="column" p="md">
           <Text>
-            <Link href="signin">ログイン画面へ戻る</Link>
+            <Link href="/signin">ログイン画面へ戻る</Link>
           </Text>
         </Flex>
       </FormContainer>

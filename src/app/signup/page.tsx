@@ -43,7 +43,8 @@ export default function Signup() {
                   w="320px"
                   type="password"
                   placeholder="パスワードを入力してください"
-                  maxLength={8}
+                  required
+                  minLength={8}
                 />
               </label>
             </Flex>
@@ -62,7 +63,7 @@ export default function Signup() {
         {errorMessage && <Text c="red">{errorMessage}</Text>}
         <Flex mt="md" align="center" gap="sm" direction="column" p="md">
           <Text>
-            <Link href="signin">すでにアカウントをお持ちの方</Link>
+            <Link href="/signin">すでにアカウントをお持ちの方</Link>
           </Text>
         </Flex>
       </FormContainer>
