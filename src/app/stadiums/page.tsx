@@ -1,5 +1,5 @@
-import { Tab } from "@/components/molecules/Tab";
-import { StadiumFetcher } from "@/components/organisms/StadiumList/StadiumFetcher";
+import { Tab } from "@/components/ui/tab";
+import { StadiumFetcher } from "@/components/features/stadium/stadium-fetcher";
 import { Box, Title, Skeleton, Paper, Flex } from "@mantine/core";
 import { Suspense } from "react";
 

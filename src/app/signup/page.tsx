@@ -1,6 +1,6 @@
 "use client";
 
-import { FormContainer } from "@/components/atoms/FormContainer";
+import { FormContainer } from "@/components/auth/form-container";
 import { signup } from "@/utils/supabase/auth/actions";
 import {
   Box,

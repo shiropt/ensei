@@ -1,4 +1,4 @@
-import { FormContainer } from "@/components/atoms/FormContainer";
+import { FormContainer } from "@/components/auth/form-container";
 import { Box, Flex, Text } from "@mantine/core";
 import Link from "next/link";
 
