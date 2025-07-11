@@ -16,6 +16,7 @@ export default function Teams() {
               <Skeleton height={40} mb="md" />
               <Flex direction="column" gap="sm">
                 {Array.from({ length: 10 }).map((_, i) => (
+                  // eslint-disable-next-line react/no-array-index-key
                   <Skeleton key={`team-skeleton-${i}`} height={18} />
                 ))}
               </Flex>

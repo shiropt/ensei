@@ -30,6 +30,7 @@ export const MatchList: FC<Props> = async ({ id, match_ym }) => {
       </>
     );
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error('Failed to fetch matches:', error);
     return <Text>試合データの取得に失敗しました</Text>;
   }
