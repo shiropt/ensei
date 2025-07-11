@@ -1,4 +1,4 @@
-import { FormContainer } from "@/components/atoms/FormContainer";
+import { FormContainer } from "@/components/auth/form-container";
 import { Box, Button, Flex, Input, Text } from "@mantine/core";
 import Link from "next/link";
 
@@ -29,7 +29,7 @@ export default function PasswordReset() {
         </form>
         <Flex mt="md" align="center" gap="sm" direction="column" p="md">
           <Text>
-            <Link href="signin">ログイン画面へ戻る</Link>
+            <Link href="/signin">ログイン画面へ戻る</Link>
           </Text>
         </Flex>
       </FormContainer>
