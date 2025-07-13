@@ -1,6 +1,6 @@
-import { BackPage } from "@/components/molecules/BackPage";
-import { StadiumDetail } from "@/components/organisms/StadiumDetail";
-import { FallbackStadiumDetail } from "@/components/organisms/StadiumDetail/fallback";
+import { BackPage } from "@/components/ui/back-page";
+import { StadiumDetail } from "@/components/features/stadium/stadium-detail";
+import { FallbackStadiumDetail } from "@/components/features/stadium/stadium-detail-fallback";
 import { Box } from "@mantine/core";
 import { Suspense } from "react";
 

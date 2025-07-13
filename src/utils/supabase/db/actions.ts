@@ -1,5 +1,5 @@
-import { PrismaClient } from "@prisma/client";
 import { AppError } from "@/utils/error-handling";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -94,13 +94,15 @@ const getStadiumsByCategory = async (category: Params["category"]) => {
   return stadiums;
 };
 
-export const getStadiums = async ({ category }: Params): Promise<StadiumListItem[]> => {
+export const getStadiums = async ({
+  category,
+}: Params): Promise<StadiumListItem[]> => {
   try {
     const stadiumsWithHomeTeams =
       category === "all"
         ? await getAllStadiums()
         : await getStadiumsByCategory(category);
-    return stadiumsWithHomeTeams.map((stadiumsWithHomeTeam) => {
+    return stadiumsWithHomeTeams.map(stadiumsWithHomeTeam => {
       const { team_stadium, ...rest } = stadiumsWithHomeTeam;
       return {
         id: rest.id,
@@ -112,12 +114,14 @@ export const getStadiums = async ({ category }: Params): Promise<StadiumListItem
         description: rest.description,
         shortName: rest.shortName,
         imageUrl: rest.imageUrl,
-        homeTeams: team_stadium.map((team) => team.teams.name).join(", "),
-        categories: team_stadium.map((team) => team.teams.category).filter(Boolean) as string[],
+        homeTeams: team_stadium.map(team => team.teams.name).join(", "),
+        categories: team_stadium
+          .map(team => team.teams.category)
+          .filter(Boolean) as string[],
       };
     });
   } catch {
-    throw new AppError('Failed to fetch stadiums', 500, 'FETCH_STADIUMS_ERROR');
+    throw new AppError("Failed to fetch stadiums", 500, "FETCH_STADIUMS_ERROR");
   }
 };
 
@@ -133,9 +137,9 @@ export const getStadium = async (id: number): Promise<StadiumDetail | null> => {
         },
       },
     });
-    
+
     if (!stadium) return null;
-    
+
     return {
       id: stadium.id,
       name: stadium.name,
@@ -148,11 +152,17 @@ export const getStadium = async (id: number): Promise<StadiumDetail | null> => {
       imageUrl: stadium.imageUrl,
       latitude: stadium.lat,
       longitude: stadium.lng,
-      homeTeams: stadium.team_stadium.map((team) => team.teams.name).join(", "),
-      categories: stadium.team_stadium.map((team) => team.teams.category).filter(Boolean) as string[],
+      homeTeams: stadium.team_stadium.map(team => team.teams.name).join(", "),
+      categories: stadium.team_stadium
+        .map(team => team.teams.category)
+        .filter(Boolean) as string[],
     };
   } catch {
-    throw new AppError(`Failed to fetch stadium with id ${id}`, 500, 'FETCH_STADIUM_ERROR');
+    throw new AppError(
+      `Failed to fetch stadium with id ${id}`,
+      500,
+      "FETCH_STADIUM_ERROR",
+    );
   }
 };
 
@@ -204,7 +214,10 @@ export const getTeam = async (id: number) => {
   return team;
 };
 
-export const getMatchesByTeam = async (teamId: number, gte: string): Promise<MatchListItem[]> => {
+export const getMatchesByTeam = async (
+  teamId: number,
+  gte: string,
+): Promise<MatchListItem[]> => {
   try {
     const from = new Date(gte);
     const lte = new Date(from.getFullYear(), from.getMonth() + 1, 1);
@@ -232,7 +245,7 @@ export const getMatchesByTeam = async (teamId: number, gte: string): Promise<Mat
         date: "asc",
       },
     });
-    return matches.map((match) => {
+    return matches.map(match => {
       return {
         id: match.id,
         section: match.section,
@@ -245,7 +258,11 @@ export const getMatchesByTeam = async (teamId: number, gte: string): Promise<Mat
       };
     });
   } catch {
-    throw new AppError(`Failed to fetch matches for team ${teamId}`, 500, 'FETCH_MATCHES_ERROR');
+    throw new AppError(
+      `Failed to fetch matches for team ${teamId}`,
+      500,
+      "FETCH_MATCHES_ERROR",
+    );
   }
 };
 

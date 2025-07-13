@@ -1,5 +1,5 @@
-import { Tab } from "@/components/molecules/Tab";
-import { TeamFetcher } from "@/components/organisms/TeamList/TeamFetcher";
+import { Tab } from "@/components/ui/tab";
+import { TeamFetcher } from "@/components/features/team/team-fetcher";
 import { Box, Container, Title, Skeleton, Flex } from "@mantine/core";
 import { Suspense } from "react";
 
@@ -16,6 +16,7 @@ export default function Teams() {
               <Skeleton height={40} mb="md" />
               <Flex direction="column" gap="sm">
                 {Array.from({ length: 10 }).map((_, i) => (
+                  // eslint-disable-next-line react/no-array-index-key
                   <Skeleton key={`team-skeleton-${i}`} height={18} />
                 ))}
               </Flex>
