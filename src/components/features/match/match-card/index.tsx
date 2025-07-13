@@ -38,13 +38,13 @@ export const MatchCard: FC<Props> = ({ match }) => {
     );
   }
 
-  const { month, day, hour, minute } = formatJstTime(match.date);
+  const { month, day, hour, minute, weekday } = formatJstTime(match.date);
 
   return (
     <Paper mb="sm" withBorder key={match.id}>
       <Flex justify="space-between" align="center" px="sm">
         <Text>
-          {`第${match.section}節`} {month}月{day}日
+          {`第${match.section}節`} {month}月{day}日({weekday})
         </Text>
         <Box>
           <NavLink
