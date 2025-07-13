@@ -1,6 +1,6 @@
 "use client";
 import { Card } from "@/components/ui/card";
-import { matchesCategory, matchesSearchQuery } from "@/utils/functions/string";
+import { matchesCategory } from "@/utils/functions/string";
 import type { Stadiums } from "@/utils/supabase/db/actions";
 import { Grid } from "@mantine/core";
 import { useQueryState } from "nuqs";
@@ -12,30 +12,16 @@ type Props = {
 };
 
 export const StadiumList: FC<Props> = ({ stadiums }) => {
-  const [searchWord] = useQueryState("search");
   const [category] = useQueryState("category");
 
   const filteringList = useMemo(() => {
     return stadiums.filter(stadium => {
-      // 検索クエリでフィルタリング
-      const searchMatches = matchesSearchQuery(
-        [
-          stadium.name,
-          stadium.homeTeams,
-          stadium.shortName,
-          stadium.address,
-          stadium.access,
-          stadium.description,
-        ],
-        searchWord,
-      );
-
       // カテゴリでフィルタリング
       const categoryMatches = matchesCategory(stadium.categories, category);
 
-      return searchMatches && categoryMatches;
+      return categoryMatches;
     });
-  }, [searchWord, stadiums, category]);
+  }, [stadiums, category]);
 
   return (
     <Grid>
