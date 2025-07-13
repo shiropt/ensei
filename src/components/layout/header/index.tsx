@@ -26,13 +26,17 @@ export const Header = () => {
         >
           <Box mt="md">
             <NavLink
-              styles={{ root: { borderBottom: "1px solid white" } }}
+              styles={{ 
+                root: { borderBottom: "1px solid #ccc" }
+              }}
               href="/teams"
               label="クラブ"
               py="md"
             />
             <NavLink
-              styles={{ root: { borderBottom: "1px solid white" } }}
+              styles={{ 
+                root: { borderBottom: "1px solid #ccc" }
+              }}
               href="/stadiums"
               label="スタジアム"
               py="md"

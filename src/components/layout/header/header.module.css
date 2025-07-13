@@ -3,7 +3,7 @@
   box-shadow: 0px 1px 4px var(--mantine-color-gray-4);
   width: 100%;
   z-index: 1000;
-  background-color: var(--mantine-color-dark-7);
+  background-color: white;
   position: fixed;
   height: 70px;
   top: 0;

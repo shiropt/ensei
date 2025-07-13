@@ -42,7 +42,7 @@ export default function RootLayout({
         <link rel="shortcut icon" href="/favicon.svg" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <MantineProvider defaultColorScheme="dark" theme={theme}>
+        <MantineProvider defaultColorScheme="light" theme={theme}>
           <NuqsAdapter>
             <Suspense>
               <Header />
