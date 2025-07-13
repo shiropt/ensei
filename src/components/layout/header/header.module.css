@@ -15,12 +15,6 @@
   text-decoration: none;
 }
 
-.search {
-  flex: 1;
-  max-width: 400px;
-  min-width: 0;
-}
-
 .title {
   flex-shrink: 0;
   margin-right: var(--mantine-spacing-sm);
@@ -31,12 +25,7 @@
   .header {
     padding: var(--mantine-spacing-sm);
   }
-  
-  .search {
-    max-width: none;
-    margin: 0 var(--mantine-spacing-sm);
-  }
-  
+
   .title {
     font-size: var(--mantine-font-size-md);
   }
