@@ -1,9 +1,9 @@
-import { Image } from "@/components/ui/image";
 import { IconWithText } from "@/components/ui/icon-with-text";
-import { GoogleMap } from "../stadium-map";
+import { Image } from "@/components/ui/image";
 import { getStadium } from "@/utils/supabase/db/actions";
 import { Box, Flex, Paper, Text, Title } from "@mantine/core";
 import type { FC } from "react";
+import { GoogleMap } from "../stadium-map";
 
 type Props = {
   id: string;
@@ -12,7 +12,7 @@ type Props = {
 
 export const StadiumDetail: FC<Props> = async ({ id }) => {
   const stadium = await getStadium(parseInt(id));
-  
+
   if (!stadium) {
     return (
       <Box>
@@ -38,7 +38,13 @@ export const StadiumDetail: FC<Props> = async ({ id }) => {
           </Title>
         </Paper>
         <Box>
-          <Image src={imageUrl ?? ""} radius="none" alt={name || "スタジアム画像"} />
+          <Image
+            src={imageUrl ?? ""}
+            radius="none"
+            alt={name || "スタジアム画像"}
+            priority
+            sizes="100vw"
+          />
         </Box>
         <Box mb="sm">
           {capacity && (
