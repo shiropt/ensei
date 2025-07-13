@@ -1,7 +1,7 @@
 import { FallbackCard } from "@/components/ui/card-fallback";
-import { Grid } from "@mantine/core";
-import type { FC } from "react";
 import { generateArrayWithKeys } from "@/utils/functions/array";
+import { Grid, GridCol } from "@mantine/core";
+import type { FC } from "react";
 
 export const FallbackStadiumList: FC = () => {
   return (
@@ -9,18 +9,15 @@ export const FallbackStadiumList: FC = () => {
       {generateArrayWithKeys(
         6,
         (_, key) => (
-          <Grid.Col 
-            key={key} 
-            span={{ base: 12, sm: 6, md: 4, lg: 3, xl: 2 }}
-          >
+          <GridCol key={key} span={{ base: 12, sm: 6, md: 4, lg: 3, xl: 2 }}>
             <FallbackCard />
-          </Grid.Col>
+          </GridCol>
         ),
-        "stadium-fallback"
+        "stadium-fallback",
       )}
     </Grid>
   );
 };
 
-// 後方互換性のためのエイリアス  
+// 後方互換性のためのエイリアス
 export const StadiumListFallback = FallbackStadiumList;

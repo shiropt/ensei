@@ -71,6 +71,7 @@ model teams {
   @@index([category], map: "idx_teams_category")
 }
 
+/// This model contains an expression index which requires additional setup for migrations. Visit https://pris.ly/d/expression-indexes for more info.
 model matches {
   id                                Int       @id @default(autoincrement())
   date                              DateTime  @db.Timestamp(6)
