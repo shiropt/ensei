@@ -1,8 +1,8 @@
 "use client";
-import { Image } from "@/components/ui/image";
 import { IconWithText } from "@/components/ui/icon-with-text";
+import { Image } from "@/components/ui/image";
 import type { Stadiums } from "@/utils/supabase/db/actions";
-import { Flex, Grid, Paper, Title } from "@mantine/core";
+import { Box, Flex, Grid, Paper, Title } from "@mantine/core";
 import Link from "next/link";
 import type { FC } from "react";
 
@@ -13,43 +13,62 @@ export const Card: FC<Props> = ({
   name,
   homeTeams,
   capacity,
-  access,
   // rating,
   imageUrl,
 }) => {
   return (
-    <Grid.Col span={{ base: 12, sm: 6, md: 4, lg: 3, xl: 2 }}>
+    <Grid.Col span={12}>
       {/* TODO: FOUC 対応 */}
-      <Paper bg="#242424" radius="sm" p={{ base: "sm", md: "md" }}>
-        <Flex direction="column" gap={{ base: "xs", md: "sm" }}>
-          <Image alt="スタジアム画像" src={imageUrl ?? ""} />
-          <Flex flex={1} justify="left" direction="column" gap="xs">
-            <Flex align="center" justify="space-between">
-              <Link
-                href={{
-                  pathname: `/stadiums/${id}`,
-                  // query: { from: `${pathname}?${searchParams}` },
-                }}
-                style={{ minHeight: "44px", display: "flex", alignItems: "center" }}
-              >
-                <Title fz={{ base: "sm", md: "md" }} order={3}>
+      <Box 
+        component={Link} 
+        href={`/stadiums/${id}`}
+        td="none"
+        c="inherit"
+        display="block"
+      >
+        <Paper radius="sm" shadow="sm" style={{ cursor: "pointer" }}>
+          <Flex direction="row" align="flex-start">
+            <Box
+              w={160}
+              miw={160}
+              h={120}
+              style={{ borderRadius: "8px", overflow: "hidden" }}
+              p={4}
+            >
+              <Image
+                alt="スタジアム画像"
+                src={imageUrl ?? ""}
+                style={{ objectFit: "cover" }}
+                height={112}
+              />
+            </Box>
+            <Flex
+              flex={1}
+              justify="space-between"
+              p="xs"
+              gap="sm"
+              direction="column"
+            >
+              <Flex direction="column">
+                <Title fz={16} order={3} lineClamp={2} fw={500}>
                   {name}
                 </Title>
-              </Link>
-              {/* <IconWithText text={`4.${rating}`} icon="star" /> */}
+              </Flex>
+            <Flex direction="column">
+              {capacity && (
+                <IconWithText
+                  text={`${Number(capacity).toLocaleString()}人`}
+                  icon="users"
+                  gap={3}
+                  fz="sm"
+                />
+              )}
+              <IconWithText text={homeTeams} icon="home" gap={3} fz="sm" />
             </Flex>
-            {capacity && (
-              <IconWithText
-                text={`${Number(capacity).toLocaleString()}人`}
-                icon="users"
-                gap={{ base: 2, md: 4 }}
-              />
-            )}
-            <IconWithText text={homeTeams} icon="home" gap={{ base: 2, md: 4 }} />
-            <IconWithText text={access} icon="mapPin" gap={{ base: 2, md: 4 }} />
+            </Flex>
           </Flex>
-        </Flex>
-      </Paper>
+        </Paper>
+      </Box>
     </Grid.Col>
   );
 };

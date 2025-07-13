@@ -29,10 +29,10 @@ export const CardWithPreload: FC<Props> = ({
         <ImagePreloader imageUrls={[imageUrl]} priority={false} />
       )}
       <Paper
-        bg="#242424"
         radius="sm"
         p={{ base: "sm", md: "md" }}
         onMouseEnter={handleMouseEnter}
+        shadow="sm"
       >
         <Flex direction="column" gap={{ base: "xs", md: "sm" }}>
           <Image
