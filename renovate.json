@@ -1,0 +1,76 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "schedule": [
+    "before 9am on monday"
+  ],
+  "timezone": "Asia/Tokyo",
+  "labels": ["dependencies"],
+  "packageRules": [
+    {
+      "groupName": "Next.js",
+      "matchPackagePatterns": ["^next", "@next/"],
+      "schedule": ["before 9am on monday"],
+      "automerge": false
+    },
+    {
+      "groupName": "React",
+      "matchPackagePatterns": ["^react", "^@types/react"],
+      "schedule": ["before 9am on monday"],
+      "automerge": false
+    },
+    {
+      "groupName": "Mantine UI",
+      "matchPackagePatterns": ["^@mantine/"],
+      "schedule": ["before 9am on monday"],
+      "automerge": false
+    },
+    {
+      "groupName": "Prisma",
+      "matchPackagePatterns": ["^prisma", "^@prisma/"],
+      "schedule": ["before 9am on monday"],
+      "automerge": false
+    },
+    {
+      "groupName": "Supabase",
+      "matchPackagePatterns": ["^@supabase/"],
+      "schedule": ["before 9am on monday"],
+      "automerge": false
+    },
+    {
+      "groupName": "Testing frameworks",
+      "matchPackagePatterns": ["^@testing-library/", "^jest", "^@playwright/", "^playwright"],
+      "schedule": ["before 9am on monday"],
+      "automerge": false
+    },
+    {
+      "groupName": "TypeScript and ESLint",
+      "matchPackagePatterns": ["^typescript", "^@types/", "^eslint", "^@eslint/", "^prettier"],
+      "schedule": ["before 9am on monday"],
+      "automerge": false
+    },
+    {
+      "matchUpdateTypes": ["patch"],
+      "automerge": true,
+      "automergeType": "pr",
+      "excludePackagePatterns": [
+        "^next$", "^@next/",
+        "^react$", "^@types/react",
+        "^@mantine/",
+        "^prisma$", "^@prisma/",
+        "^@supabase/",
+        "^@testing-library/", "^jest$", "^@playwright/", "^playwright$",
+        "^typescript$", "^@types/", "^eslint$", "^@eslint/", "^prettier$"
+      ],
+      "addLabels": ["auto-merge"]
+    }
+  ],
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "schedule": ["at any time"]
+  },
+  "dependencyDashboard": true,
+  "rangeStrategy": "bump"
+}
