@@ -55,6 +55,15 @@
       "matchUpdateTypes": ["patch"],
       "automerge": true,
       "automergeType": "pr",
+      "excludePackagePatterns": [
+        "^next$", "^@next/",
+        "^react$", "^@types/react",
+        "^@mantine/",
+        "^prisma$", "^@prisma/",
+        "^@supabase/",
+        "^@testing-library/", "^jest$", "^@playwright/", "^playwright$",
+        "^typescript$", "^@types/", "^eslint$", "^@eslint/", "^prettier$"
+      ],
       "addLabels": ["auto-merge"]
     }
   ],
