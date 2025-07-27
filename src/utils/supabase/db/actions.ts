@@ -32,6 +32,10 @@ export interface TeamListItem {
   name: string;
   short_name: string | null;
   category: string | null;
+  stadiums?: {
+    name: string | null;
+    address: string | null;
+  }[];
 }
 
 export interface MatchListItem {
@@ -183,8 +187,30 @@ export type Tag = TagItem;
 export const getTeams = async (): Promise<TeamListItem[]> => {
   const teams = await prisma.teams.findMany({
     orderBy: { id: "asc" },
+    include: {
+      team_stadium: {
+        include: {
+          stadiums: {
+            select: {
+              name: true,
+              address: true,
+            },
+          },
+        },
+      },
+    },
   });
-  return teams;
+
+  return teams.map(team => ({
+    id: team.id,
+    name: team.name,
+    short_name: team.short_name,
+    category: team.category,
+    stadiums: team.team_stadium.map(ts => ({
+      name: ts.stadiums.name,
+      address: ts.stadiums.address,
+    })),
+  }));
 };
 
 export type Teams = TeamListItem[];
@@ -267,3 +293,48 @@ export const getMatchesByTeam = async (
 };
 
 export type Matches = MatchListItem[];
+
+export const getMatches = async (
+  monthStart: Date,
+  monthEnd: Date,
+  category: string,
+): Promise<any[]> => {
+  try {
+    const whereClause: any = {
+      date: {
+        gte: monthStart,
+        lte: monthEnd,
+      },
+    };
+
+    // カテゴリーでフィルタリング（"all"以外の場合）
+    if (category !== "all") {
+      // DBのcategoryは全角文字（Ｊ１、Ｊ２、Ｊ３）の場合があるため対応
+      const categoryMap: { [key: string]: string[] } = {
+        j1: ["J1", "Ｊ１"],
+        j2: ["J2", "Ｊ２"],
+        j3: ["J3", "Ｊ３"],
+      };
+
+      whereClause.category = {
+        in: categoryMap[category.toLowerCase()] || [category.toUpperCase()],
+      };
+    }
+
+    const matches = await prisma.matches.findMany({
+      where: whereClause,
+      include: {
+        teams_matches_home_team_idToteams: true,
+        teams_matches_away_team_idToteams: true,
+        stadiums: true,
+      },
+      orderBy: {
+        date: "asc",
+      },
+    });
+
+    return matches;
+  } catch {
+    throw new AppError("Failed to fetch matches", 500, "FETCH_MATCHES_ERROR");
+  }
+};

@@ -1,10 +1,10 @@
 "use client";
-import { ListItem } from "../team-list-item";
-import type { Teams } from "@/utils/supabase/db/actions";
 import { matchesCategory } from "@/utils/functions/string";
-import { Box, List } from "@mantine/core";
+import type { Teams } from "@/utils/supabase/db/actions";
+import { Box } from "@mantine/core";
 import { useQueryState } from "nuqs";
 import { useMemo, type FC } from "react";
+import { ListItem } from "../team-list-item";
 
 type Props = {
   teams: Teams;
@@ -13,17 +13,13 @@ type Props = {
 export const TeamList: FC<Props> = ({ teams }) => {
   const [category] = useQueryState("category");
   const filteringList = useMemo(() => {
-    return teams.filter((team) => 
-      matchesCategory(team.category, category)
-    );
+    return teams.filter(team => matchesCategory(team.category, category));
   }, [category, teams]);
   return (
     <Box>
-      <List>
-        {filteringList.map((team) => {
-          return <ListItem key={team.id} team={team} />;
-        })}
-      </List>
+      {filteringList.map(team => {
+        return <ListItem key={team.id} team={team} />;
+      })}
     </Box>
   );
 };

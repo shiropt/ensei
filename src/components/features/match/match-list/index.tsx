@@ -1,37 +1,55 @@
-import { formatJstTime } from "@/utils/functions/date";
-import { getMatchesByTeam } from "@/utils/supabase/db/actions";
-import { Text } from "@mantine/core";
-import type { FC } from "react";
-import { MatchCard } from "../match-card";
+"use client";
+import { MatchListItem } from "@/components/features/match/match-list-item";
+import { Box, Stack, Text } from "@mantine/core";
+import type { matches, stadiums, teams } from "@prisma/client";
+import { useQueryState } from "nuqs";
+import { useMemo } from "react";
 
-type Props = {
-  id: string;
-  match_ym?: string;
+type MatchWithRelations = matches & {
+  teams_matches_home_team_idToteams: teams | null;
+  teams_matches_away_team_idToteams: teams | null;
+  stadiums: stadiums | null;
 };
 
-export const MatchList: FC<Props> = async ({ id, match_ym }) => {
-  const teamId = parseInt(id, 10);
-  if (isNaN(teamId)) {
-    return <Text>無効なチームIDです</Text>;
+type MatchListProps = {
+  matches: MatchWithRelations[];
+};
+
+export const MatchList = ({ matches }: MatchListProps) => {
+  const [category] = useQueryState("category");
+
+  const filteredMatches = useMemo(() => {
+    if (!category || category === "all") {
+      return matches;
+    }
+    
+    // カテゴリーでフィルタリング
+    const categoryMap: { [key: string]: string[] } = {
+      j1: ["J1", "Ｊ１"],
+      j2: ["J2", "Ｊ２"],
+      j3: ["J3", "Ｊ３"],
+    };
+    
+    const validCategories = categoryMap[category.toLowerCase()] || [category.toUpperCase()];
+    
+    return matches.filter(match => {
+      return match.category && validCategories.includes(match.category);
+    });
+  }, [matches, category]);
+
+  if (!filteredMatches || filteredMatches.length === 0) {
+    return (
+      <Box p="xl" ta="center">
+        <Text c="dimmed">この月の試合データはありません</Text>
+      </Box>
+    );
   }
 
-  try {
-    const { year, month } = formatJstTime(new Date());
-    const matches = await getMatchesByTeam(
-      teamId,
-      match_ym ?? `${year}-${month?.padStart(2, "0")}`,
-    );
-    return (
-      <>
-        {matches.length === 0 && <Text>試合がありません</Text>}
-        {matches.map(match => {
-          return <MatchCard key={match.id} match={match} />;
-        })}
-      </>
-    );
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error("Failed to fetch matches:", error);
-    return <Text>試合データの取得に失敗しました</Text>;
-  }
+  return (
+    <Stack gap="xs">
+      {filteredMatches.map(match => (
+        <MatchListItem key={match.id} match={match} />
+      ))}
+    </Stack>
+  );
 };

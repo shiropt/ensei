@@ -24,7 +24,7 @@ export const StadiumList: FC<Props> = ({ stadiums }) => {
   }, [stadiums, category]);
 
   return (
-    <Grid>
+    <Grid gutter="md">
       {filteringList.map(item => {
         return <Card key={item.id} {...item} />;
       })}

@@ -1,48 +1,23 @@
 "use client";
-import { Box, Burger, Drawer, Flex, NavLink, Title } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { ActionIcon, Flex, Title } from "@mantine/core";
+import { IconSearch, IconUser } from "@tabler/icons-react";
 import classes from "./header.module.css";
 
 export const Header = () => {
-  const [opened, { toggle }] = useDisclosure();
-
   return (
     <header className={classes.header}>
-      <Flex h="100%" align="center" justify="space-between" gap="sm">
+      <Flex h="100%" align="center" justify="space-between">
         <Title className={classes.title} order={1} size="lg">
           ensei
         </Title>
-        <Burger
-          opened={opened}
-          onClick={toggle}
-          aria-label="Toggle navigation"
-          size="sm"
-        />
-        <Drawer
-          position="right"
-          opened={opened}
-          onClose={toggle}
-          title="Authentication"
-        >
-          <Box mt="md">
-            <NavLink
-              styles={{ 
-                root: { borderBottom: "1px solid #ccc" }
-              }}
-              href="/teams"
-              label="クラブ"
-              py="md"
-            />
-            <NavLink
-              styles={{ 
-                root: { borderBottom: "1px solid #ccc" }
-              }}
-              href="/stadiums"
-              label="スタジアム"
-              py="md"
-            />
-          </Box>
-        </Drawer>
+        <Flex gap="sm">
+          <ActionIcon variant="subtle" color="gray" size="lg">
+            <IconSearch size={24} />
+          </ActionIcon>
+          <ActionIcon variant="subtle" color="gray" size="lg">
+            <IconUser size={24} />
+          </ActionIcon>
+        </Flex>
       </Flex>
     </header>
   );
