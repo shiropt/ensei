@@ -1,16 +1,17 @@
+import { Header } from "@/components/layout/header";
+import { Navbar } from "@/components/layout/navbar";
+import {
+  ColorSchemeScript,
+  createTheme,
+  mantineHtmlProps,
+  MantineProvider,
+} from "@mantine/core";
+import "@mantine/core/styles.css";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "@mantine/core/styles.css";
-import "./globals.css";
-import {
-  createTheme,
-  MantineProvider,
-  ColorSchemeScript,
-  mantineHtmlProps,
-} from "@mantine/core";
-import { Header } from "@/components/layout/header";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Suspense } from "react";
+import "./globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -46,6 +47,7 @@ export default function RootLayout({
           <NuqsAdapter>
             <Suspense>
               <Header />
+              <Navbar />
             </Suspense>
             {children}
           </NuqsAdapter>
