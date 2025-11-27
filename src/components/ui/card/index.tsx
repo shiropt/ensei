@@ -18,8 +18,7 @@ export const Card: FC<Props> = ({
 }) => {
   return (
     <Grid.Col span={12}>
-      {/* TODO: FOUC 対応 */}
-      <Box 
+      <Box
         component={Link} 
         href={`/stadiums/${id}`}
         td="none"

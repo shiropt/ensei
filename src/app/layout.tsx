@@ -38,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="ja" {...mantineHtmlProps}>
       <head>
-        <ColorSchemeScript />
+        <ColorSchemeScript defaultColorScheme="light" />
         <link rel="shortcut icon" href="/favicon.svg" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
