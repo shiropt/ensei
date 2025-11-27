@@ -1,3 +1,5 @@
+import { describe, expect, it } from 'vitest'
+
 import { generateArrayWithKeys, generateUniqueKey } from '../array'
 
 describe('array utilities', () => {
