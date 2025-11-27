@@ -1,3 +1,5 @@
+import { describe, expect, it, vi } from 'vitest'
+
 import { AppError, isAppError, handleError, withErrorHandling } from '../error-handling'
 
 describe('error-handling utilities', () => {
@@ -83,7 +85,7 @@ describe('error-handling utilities', () => {
 
   describe('withErrorHandling', () => {
     it('should return data on successful execution', async () => {
-      const successFn = jest.fn().mockResolvedValue('success data')
+      const successFn = vi.fn().mockResolvedValue('success data')
       const result = await withErrorHandling(successFn)
       
       expect(result).toEqual({ data: 'success data' })
@@ -91,8 +93,8 @@ describe('error-handling utilities', () => {
     })
 
     it('should return error on failed execution', async () => {
-      const errorFn = jest.fn().mockRejectedValue(new Error('Test error'))
-      const consoleSpy = jest.spyOn(console, 'error').mockImplementation()
+      const errorFn = vi.fn().mockRejectedValue(new Error('Test error'))
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation()
       
       const result = await withErrorHandling(errorFn, 'Custom error message')
       
@@ -103,8 +105,8 @@ describe('error-handling utilities', () => {
     })
 
     it('should use default error message when not provided', async () => {
-      const errorFn = jest.fn().mockRejectedValue(new Error('Test error'))
-      const consoleSpy = jest.spyOn(console, 'error').mockImplementation()
+      const errorFn = vi.fn().mockRejectedValue(new Error('Test error'))
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation()
       
       await withErrorHandling(errorFn)
       
@@ -115,7 +117,7 @@ describe('error-handling utilities', () => {
 
     it('should handle AppError correctly', async () => {
       const appError = new AppError('Custom app error', 400)
-      const errorFn = jest.fn().mockRejectedValue(appError)
+      const errorFn = vi.fn().mockRejectedValue(appError)
       
       const result = await withErrorHandling(errorFn)
       
